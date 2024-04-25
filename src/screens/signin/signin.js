@@ -34,16 +34,27 @@ export const Signin = () => {
                     "Access-Control-Allow-Headers": "Content-Type"
                   }
             }
-            axios.post(`https://${url}/auth/register`, post_data, {
-                withCredentials: true
+
+            fetch(`https://${url}/auth/register`, {
+                method: 'POST',
+                headers: {
+                  'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(post_data)
               })
-            .then(res => {
-                console.log("Ответ от сервера")
-                console.log(res.data)
-            })
-            .catch(err => {
-                console.log("ERR > ", err.status, err)
-            })
+              .then(response => response.json())
+              .then(data => console.log(data))
+              .catch(error => console.error('Error:', error));
+            // axios.post(`https://${url}/auth/register`, post_data, {
+            //     withCredentials: true
+            //   })
+            // .then(res => {
+            //     console.log("Ответ от сервера")
+            //     console.log(res.data)
+            // })
+            // .catch(err => {
+            //     console.log("ERR > ", err.status, err)
+            // })
 
         // }
     }
