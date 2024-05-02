@@ -1,12 +1,22 @@
+
+@font-face {
+  font-family: 'Cygre-Thin';
+  src: url(../../fonts/Cygre-Thin.ttf); 
+}
+
+@font-face {
+  font-family: 'Cygre-Light';
+  src: url(../../fonts/Cygre-Light.ttf); 
+}
 * {
-    margin: 0;
-    padding: 0;text-decoration: none;
+  margin: 0;
+  padding: 0;text-decoration: none;
 }
 
 html,
 body {
   height: 100%;
-  background-color: #161616;
+  background-color: #F7F7F7;
 }
 
 
@@ -14,6 +24,100 @@ body {
   display: flex;
   flex-direction: row;
   min-height: 100vh;
-  color: white
+  background-color: #F7F7F7;
 }
 
+.MainSideBar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: 100%;
+  background-color: #a0a0a0;
+  display: flex;
+  flex-direction: row;
+}
+
+.OptionsPanel {
+  padding-top: 35px;
+  padding-bottom: 20px;
+  width: 100px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: #ebebeb;
+  box-sizing: border-box;
+}
+
+.ColorFolders {
+  width: 100%;
+  height: auto;
+  /* border: 1px blue solid; */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.circle {
+  cursor: pointer;
+  width: 43px;
+  height: 43px;
+  margin-bottom: 37px;
+  border-radius: 50%;
+}
+.circle:last-child {
+  margin-bottom: 0;
+}
+
+#blue{background-color: #26547C;}
+#yellow{background-color: #FFC800;}
+#gray{background-color: #A0A0A0;}
+#green{background-color: #4CB944;}
+#red{background-color: #FF0035;}
+
+.Accounts {
+  width: 100%;
+  /* border: 1px #2f7735 solid; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.Account {
+  cursor: pointer;
+  width: 43px;
+  height: 43px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #399969;
+  margin-bottom: 12px;
+}
+
+.AccountsList{
+  /* border: 4px red solid; */
+  display: flex;
+  width: 100%;
+  max-height: 300px;
+  flex-direction: column;
+  align-items: center;
+  overflow: auto;
+}
+
+
+.List {
+
+}
+
+.MessageBlock {
+  position: fixed;
+  right: 0;
+  width: 49%;
+  height: 100%;
+  background-color: #dfd9d9;
+
+}
