@@ -2,29 +2,78 @@ import { NavLink } from "react-router-dom"
 // import { Socket } from "socket.io-client"
 // import { io } from "socket.io-client"
 import { PiDotsThreeOutlineLight } from "react-icons/pi";
+import { GoPaperAirplane } from "react-icons/go";
+import { CiSearch } from "react-icons/ci";
+import { useLocation } from 'react-router-dom';
+import { IoCheckmarkDoneOutline } from "react-icons/io5";
 
+import { Chat } from "../../components/ComponentChat";
 import './chats.css'
 export const Chats = () => {
-
-
-    console.clear()
-
-    // const address = "127.0.0.1:5000"
-
-    // const socket = new WebSocket(`ws://${address}`);
-    // socket.on('connect', () => {
-    //     console.log('Connected to ws://url');
-    // });
+    let location = useLocation();
+    let t="ASD"
+    const token = location.state.token
+    const acc_list = [
+        {
+            id: 1,
+            name: "АБ",
+        },
+        {
+            id: 2,
+            name: "ВГ"
+        },
+        {
+            id: 3,
+            name: "ДЕ"
+        }
+    ]
     
-    // socket.on('data', (data) => {
-    //     console.log('Received data:', data);
-    // });
-    
-    // socket.on('disconnect', () => {
-    //     console.log('Disconnected from ws://url');
-    // });
+    const chat_list = [
+        {
+            id: 1,
+            color: "red",
+            user_name: "Николай Убунта",
+            product: "Ядро UniLix",
+            last_message: "Я у вас приобрел 124 'копий херувимы-2' ",
+            checked: false,
+            date: "24.12.2012",
+            amount_message: 21,
+        },
+        {
+            id: 2,
+            color: "green",
+            user_name: "Семен Никулин",
+            product: "Система МАС ОС",
+            last_message: "Много ли тех кто бхает мас для игр?' ",
+            checked: true,
+            date: "21.12.2012",
+            amount_message: 1,
+        },
 
-    const itemAccount = document.querySelectorAll('.Account')
+    ]
+
+    const renderAcc = () => {
+        
+        // return acc_list.map(acc => (
+        //     <div key={acc.id} className="Account" data-index={acc.id}>{acc.name}</div>
+        // ));
+    }
+
+    const renderChat = () => {
+        return chat_list.map(chat => (
+            <Chat 
+                id={chat.id}
+                color={chat.color} 
+                userName={chat.user_name} 
+                product={chat.product}
+                lastMessage={chat.last_message}
+                checkedInfo={chat.checked}
+                dateText={chat.date}
+                ChatInfoCircle={chat.amount_message}
+            />
+        ))
+    }
+   
 
     return(
 
@@ -41,42 +90,67 @@ export const Chats = () => {
                         <div className="circle" id="red"/>
 
                     </div>
-                    
+
                     <div className="Accounts">
-                        <PiDotsThreeOutlineLight onClick={() => {console.log("tap")}} size={32} />
-                       
                         <div className="AccountsList">
-                            {/* <div className="List">
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                            </div> */}
-                            
                             <div className="List">
 
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>
-                                <div className="Account">ИГ</div>     
+                                <div className="dotBlock" onClick={() => {console.log("tap")}}>
+                                    <PiDotsThreeOutlineLight className="dot"  size={32} />  
+                                </div>
+                                
+                                {
+                                    renderAcc()
+                                }
 
                             </div>
-
+   
                         </div>
                     </div>
                 </div>
 
-                <div className="Chats">
 
+
+                <div className="ChatsBlock">
+
+
+                    <div className="SearchBlock">
+
+                        <div className="InputBlock">
+
+                            <div className="IconSearch" >
+                                <CiSearch size={40} />
+                            </div>
+                            <input className="Input" placeholder="Поиск ...">
+
+                            </input>
+
+                        </div>
+                        <GoPaperAirplane className="IconSend" size={32}/>
+                        <PiDotsThreeOutlineLight className="Dots" size={32} />  
+
+
+
+                    </div>
+
+
+
+                    <div className="scrollbox">
+
+                        <div className="scrollbox-inner">
+
+                            {/* <Chat color="green" userName="Игорь Иванович" product="qwddcs" lastMessage="kqwebcq obc wdocb ?" checkedInfo="checked" dateText="29.01.2024" /> */}
+                            {
+                                renderChat()
+                            }
+                        </div>
+
+                    </div>
+
+                   
                 </div>
+
+
             </div>
 
             <div className="MessageBlock">

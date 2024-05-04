@@ -1,0 +1,36 @@
+
+@font-face {
+    font-family: 'Cygre-Thin';
+    src: url(../../fonts/Cygre-Thin.ttf); 
+}
+
+@font-face {
+    font-family: 'Cygre-Light';
+    src: url(../../fonts/Cygre-Light.ttf); 
+}
+
+@font-face {
+    font-family: 'Cygre-Medium';
+    src: url(../../fonts/Cygre-Medium.ttf); 
+}
+* {
+    margin: 0;
+    padding: 0;text-decoration: none;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: #F7F7F7;
+}
+
+
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background-color: #F7F7F7;
+
+}

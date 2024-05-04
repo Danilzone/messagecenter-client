@@ -8,6 +8,11 @@
     font-family: 'Cygre-Light';
     src: url(../../fonts/Cygre-Light.ttf); 
 }
+
+@font-face {
+    font-family: 'Cygre-Medium';
+    src: url(../../fonts/Cygre-Medium.ttf); 
+}
 * {
     margin: 0;
     padding: 0;text-decoration: none;
@@ -68,21 +73,39 @@ input {
 .btn {
     cursor: pointer;
     color: white;
-    font-weight: 600;
+    width: 300px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Cygre-Medium';
+    font-size: 20px;
     padding: 10px 40px;
-    background-color: #000000;
+    background-color: #303030;
     border-radius: 10px;
+}
+
+.textBtn {
+    margin-top: auto;
+    /* margin-bottom: 50px; */
+    font-size: 20px;
+    font-family: 'Cygre-Medium';
+    color: #303030;
+
 }
 
 .loading {
     min-height: 100vh;
     min-width: 100vw;
-
     position: absolute;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
     background-color: rgba(0, 0, 0, 0.5);
-    
+}
+
+.loadtext {
+    margin-top: 20px;
+    color: #d6d536;
 }

@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { NavLink } from "react-router-dom"
+import { NavLink, useNavigate } from "react-router-dom"
+
 import axios from "axios"
 import './signin.css'
 
@@ -11,7 +12,7 @@ import PacmanLoader from 'react-spinners/PacmanLoader';
 const url = "messagecenter-9p86.onrender.com"
 
 export const Signin = () => {
-
+    const navigation = useNavigate();
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
 
@@ -45,12 +46,9 @@ export const Signin = () => {
                 }
             }
 
-            axios.post(`https://${url}/auth/login`, post_data, post_headers)
+            axios.post(`https://${url}/auth/jwt/login`, post_data, post_headers)
             .then(res => {
-                console.log(res.data)
-
-               
-
+                navigation("/chats",  {state: {token: res.data.access_token }})
             })
             .catch(err => {
                 console.log(err.response.status)
@@ -65,36 +63,6 @@ export const Signin = () => {
         }
     }
 
-    const test = (token) => {
-            const post_data = {
-
-            profile_id: 159470220,
-            client_id: 'Pm4BmvaY4LPFHQ6Oo_Hu',
-            client_secret: 'qBO1H1ssvcfotR15Nw1Qpxrs_1yG9vyhWb9tbgj5',
-            proxy: 'None',
-            name: 'first'
-
-        }
-        
-        const post_headers  = {
-            headers: {
-                'accept': 'application/json',
-                'Content-Type': 'application/x-www-form-urlencoded',
-                'Autarizations': `Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ1c2VyX2lkIjoiOTIyMWZmYzktNjQwZi00MzcyLTg2ZDMtY2U2NDJjYmE1NjAzIiwiYXVkIjoiZmFzdGFwaS11c2VyczphdXRoIiwiZXhwIjoxNTcxNTA0MTkzfQ.M10bjOe45I5Ncu_uXvOmVV8QxnL-nZfcH96U90JaocI`
-            }
-        }
-
-        console.log(post_headers.headers)
-
-        axios.post(`https://${url}/add_account`, post_data, post_headers)
-        .then(res => {
-            console.log(res.data)
-        })
-        .catch(err => {
-            console.log("ERR: ", err)
-        })
-
-    }
 
     return(
 
@@ -104,7 +72,7 @@ export const Signin = () => {
 
                 <div className='loading'>
                     <PacmanLoader color="#d6d536" />
-                    <h2>В процессее</h2>
+                    <h2 className='loadtext'>В процессее</h2>
                 </div>
 
             }
@@ -128,8 +96,8 @@ export const Signin = () => {
 
                 </div>
 
-                {/* <NavLink className="btn" to='/chats'>Войти</NavLink> */}
                 <div className='btn' onClick={goto}>Войти</div>
+                <NavLink className="textBtn" to='/signup'>Регистрация</NavLink>
             </div>
 
         </div>
