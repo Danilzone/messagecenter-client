@@ -103,7 +103,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #399969;
+  background-color: #f4f4f4;
   margin-bottom: 12px;
 }
 
@@ -330,7 +330,6 @@ body {
 
 
 
-
 .MessageBlock {
   position: fixed;
   right: 0;
@@ -338,36 +337,108 @@ body {
   height: 100%;
   display: flex;
   flex-direction: column;
-  background-color: #dfd9d9;
-  padding: 10px;
-}
-
-
-.MessageChatBlock {
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  /* margin: 10px; */
-  padding: 10px;
-  background-color: #F7F7F7;
+  background-color: #f7f7f7;
 }
 
 .TopPanel {
   width: 100%;
-  height: 10%;
-  background-color: #26547C;
+  margin-bottom: 20px;
+  /* height: 15%; */
+  background-color: #EBEBEB;
+  display: flex;
+  flex-direction: column;
+}
+
+.MessageChatInfo {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.ChatName {
+  font-size: 20px;
+  font-family: 'Cygre-Bold';
+}
+
+.ChatNameProduct {
+  margin-top: 10px;
+  font-size: 18px;
+  font-family: 'Cygre-Medium';
+}
+
+.tabs {
+  display: flex;
+  width: 100%;
+  margin-top: 20px;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.elips {
+  cursor: pointer;
+  color: #fff;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100px;
+  margin-left: 10px;
+  margin-right: 10px;
+  height: 30px;
+  border-radius: 30px;
 }
 
 .Messages {
+
   width: 100%;
-  height: 90%;
-  border: 1px #1a1a1a solid;
+  height: 80%;
+  display: flex;
+  background-color: #f7f7f7;
+  flex-direction: column;
+  overflow: auto; 
 
 }
 
 .InputMessage {
   width: 100%;
   height: 10%;
-  border: 2px green solid;
+  display: flex;
+  flex-direction: row;
+  background-color: green;
+}
+
+.Message {
+  max-width: 49%;
+  height: auto;
+  padding: 10px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  word-wrap: break-word;
+}
+
+
+.__my {
+  margin-left: auto;
+  background-color: #EBEBEB;
+  /* background-color: #66a057; */
+
+  border-radius: 20px;
+}
+
+.__other {
+  margin-right: auto;
+  background-color: #d9d9d9;
+  /* background-color: #7757a0; */
+  border-radius: 20px;
+}
+
+.Check {
+  color: #A0A0A0;
+  width: 100%;
+  justify-content: end;
+  align-items: center;
+  display: flex;
+  flex-direction: row;
 }

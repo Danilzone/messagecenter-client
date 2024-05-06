@@ -1,18 +1,24 @@
 import { NavLink } from "react-router-dom"
 // import { Socket } from "socket.io-client"
 // import { io } from "socket.io-client"
+import axios from "axios";
 import { PiDotsThreeOutlineLight } from "react-icons/pi";
 import { GoPaperAirplane } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { useLocation } from 'react-router-dom';
-import { IoCheckmarkDoneOutline } from "react-icons/io5";
+import { Message } from "../../components/ComponentMessage";
+
+import { LuPlus } from "react-icons/lu";
+
 
 import { Chat } from "../../components/ComponentChat";
 import './chats.css'
 export const Chats = () => {
+    const url = "messagecenter-9p86.onrender.com"
+
     let location = useLocation();
     const token = location.state.token
-    console.log('\x1b[33m%s\x1b[0m', "token: ", token, "\n \n \n")
+    // console.log('\x1b[33m%s\x1b[0m', "token: ", token, "\n \n \n")
     const acc_list = [
         {
             id: 1,
@@ -51,10 +57,21 @@ export const Chats = () => {
         },
 
     ]
-
-    console.log('\x1b[33m%s\x1b[0m',  "\naccs: \n",  acc_list)
-    console.log('\x1b[33m%s\x1b[0m',  "\nchats: \n", chat_list)
-
+    
+    // const post_header = {
+    //     headers: {
+    //         'accept': 'application/json',
+    //         'Content-Type': 'application/x-www-form-urlencoded',
+    //         'access_token': token
+    //     }
+    // }
+    // axios.get(`https://${url}/avito_chats/get_chats`,post_header)
+    // .then(res => {
+    //     console.log(res)
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    // })
 
     const renderAcc = () => {
         
@@ -157,15 +174,58 @@ export const Chats = () => {
             </div>
 
             <div className="MessageBlock">
-                <div className="MessageChatBlock">
+                    
                     <div className="TopPanel">
-                            {/*  */}
-                    </div>
-                    <div className="Messages">
                         
+                        <div className="MessageChatInfo">
+                            <div className="ChatName">
+                                Игорь Игорьевич Игорацы
+                            </div>
+                            <div className="ChatNameProduct">
+                                Имя товара
+                            </div>
+                        </div>
+
+                        <div className="tabs">
+                            <div className="elips" id="blue">
+                                <LuPlus color="#fff" size={20}/>
+                            </div>
+                            <div className="elips" id="yellow">
+                                <LuPlus color="#fff" size={20}/>
+                            </div>
+                            <div className="elips" id="gray">
+                                <LuPlus color="#fff" size={20}/>
+                            </div>
+                            <div className="elips" id="green">
+                                <LuPlus color="#fff" size={20}/>
+                            </div>
+                            <div className="elips" id="red">
+                                <LuPlus color="#fff" size={20}/>
+                            </div>
+                        </div>
+
                     </div>
-                    <div className="InputMessage"></div>
+
+                <div className="Messages">
+                    <Message
+                        put="out"
+                        text="Еще актуально?"
+                        check={true} 
+                        time="12:223"
+                    />                       
+                    <Message
+                        put="in"
+                        text="Добрый день, да актуально, а что?!"
+                        check={false} 
+                        time="12:223"
+                    />                       
+
+                </div> 
+
+                <div className="InputMessage">
+                        
                 </div>
+
             </div>
 
         </div>
