@@ -97,7 +97,7 @@ export const Signin = () => {
                 </div>
 
                 <div className='btn' onClick={goto}>Войти</div>
-                <NavLink className="textBtn" to='/signup'>Регистрация</NavLink>
+                <NavLink className="textBtn" to='/signup'>Регистрация.</NavLink>
             </div>
 
         </div>
