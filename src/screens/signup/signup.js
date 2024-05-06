@@ -46,8 +46,6 @@ export const Signup = () => {
                 axios.post(`https://${url}/auth/register`, post_data)
                 .then(res => {
                     console.log("зарегали")
-
-                    const resReg = res.data
                     
                     setLoadingTwo(true)
                     const login_data = {

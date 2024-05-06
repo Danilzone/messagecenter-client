@@ -11,8 +11,8 @@ import { Chat } from "../../components/ComponentChat";
 import './chats.css'
 export const Chats = () => {
     let location = useLocation();
-    let t="ASD"
     const token = location.state.token
+    console.log('\x1b[33m%s\x1b[0m', "token: ", token, "\n \n \n")
     const acc_list = [
         {
             id: 1,
@@ -52,16 +52,21 @@ export const Chats = () => {
 
     ]
 
+    console.log('\x1b[33m%s\x1b[0m',  "\naccs: \n",  acc_list)
+    console.log('\x1b[33m%s\x1b[0m',  "\nchats: \n", chat_list)
+
+
     const renderAcc = () => {
         
-        // return acc_list.map(acc => (
-        //     <div key={acc.id} className="Account" data-index={acc.id}>{acc.name}</div>
-        // ));
+        return acc_list.map(acc => (
+            <div key={acc.id} className="Account" data-index={acc.id}>{acc.name}</div>
+        ));
     }
 
     const renderChat = () => {
         return chat_list.map(chat => (
             <Chat 
+            key={chat.id}
                 id={chat.id}
                 color={chat.color} 
                 userName={chat.user_name} 
@@ -69,7 +74,7 @@ export const Chats = () => {
                 lastMessage={chat.last_message}
                 checkedInfo={chat.checked}
                 dateText={chat.date}
-                ChatInfoCircle={chat.amount_message}
+                amountMessage={chat.amount_message}
             />
         ))
     }
@@ -138,8 +143,6 @@ export const Chats = () => {
                     <div className="scrollbox">
 
                         <div className="scrollbox-inner">
-
-                            {/* <Chat color="green" userName="Игорь Иванович" product="qwddcs" lastMessage="kqwebcq obc wdocb ?" checkedInfo="checked" dateText="29.01.2024" /> */}
                             {
                                 renderChat()
                             }
@@ -154,7 +157,15 @@ export const Chats = () => {
             </div>
 
             <div className="MessageBlock">
-                
+                <div className="MessageChatBlock">
+                    <div className="TopPanel">
+                            {/*  */}
+                    </div>
+                    <div className="Messages">
+                        
+                    </div>
+                    <div className="InputMessage"></div>
+                </div>
             </div>
 
         </div>

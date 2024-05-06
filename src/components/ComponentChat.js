@@ -2,8 +2,8 @@ import { PiDotsThreeOutlineLight } from "react-icons/pi";
 import { GoPaperAirplane } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
-
-export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, ChatInfoCircle}) => {
+import { IoCheckmarkOutline } from "react-icons/io5";
+export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, amountMessage}) => {
     
     const openChat = () => {
         console.log("chat id", id)
@@ -33,7 +33,7 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
             <div className="TopInfoBlock">
                 <div className="Checked">
                     {
-                        checkedInfo === "checked" ? <IoCheckmarkDoneOutline size={22} color="#A0A0A0"/> : <div>qw</div>
+                        checkedInfo === true ? <IoCheckmarkDoneOutline size={22} color="#A0A0A0"/> : <IoCheckmarkOutline  size={22} color="#A0A0A0"/>
                     }
                 </div>
                 <div className="DateText">
@@ -43,7 +43,7 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
 
             <div className="BottomInfoBlock">
                 <div className="ChatInfoCircle">
-                    {ChatInfoCircle}
+                    {amountMessage}
                 </div>
             </div>
 
