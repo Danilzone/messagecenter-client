@@ -61,9 +61,36 @@ export const Signup = () => {
 
                     axios.post(`https://${url}/auth/jwt/login`, login_data, login_headers)
                     .then(res => {
+                        console.log(res)
+                        console.log("Вошел")    
+                                
+
+                        const reg_avito_data = {
+                            profile_id: 159470220,
+                            client_id: 'Pm4BmvaY4LPFHQ6Oo_Hu',
+                            client_secret: 'qBO1H1ssvcfotR15Nw1Qpxrs_1yG9vyhWb9tbgj5',
+                            name: 'first',
+
+                        }
+
+                        const reg_avito_headers = {
+                            headers: {
+                                'Authorization': `bearer ${res.data.access_token}`,
+                                'accept': 'application/json',
+                                'Content-Type': 'application/json',
+                            }
+                        }
+
+                        axios.post(`https://${url}/avito_accounts/register_account`, reg_avito_data, reg_avito_headers)
+                        .then(res => {
+                            console.log("reg avito", res)
+                        })
+                        .catch(err => {
+                            console.log("reg avito", err)
+                        })
+
                         
-                        console.log("Вошел")
-                        navigation("/chats", {state: {token: res.data.access_token }})
+                        // navigation("/chats", {state: {token: res.data.access_token }})
 
                     })
                     .catch(err => {

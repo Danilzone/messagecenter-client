@@ -7,7 +7,7 @@ import { GoPaperAirplane } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { useLocation } from 'react-router-dom';
 import { Message } from "../../components/ComponentMessage";
-
+import { FaPlus } from "react-icons/fa6";
 import { LuPlus } from "react-icons/lu";
 
 
@@ -95,7 +95,34 @@ export const Chats = () => {
             />
         ))
     }
-   
+
+    
+    // console.log(token)
+    // axios.get(`https:${url}/avito_accounts/register_account`, {
+    //     profile_id:159470220,
+    //     client_id:'Pm4BmvaY4LPFHQ6Oo_Hu',
+    //     client_secret:'qBO1H1ssvcfotR15Nw1Qpxrs_1yG9vyhWb9tbgj5',
+    //     proxy:'None',
+    //     name:'first'
+    //     }, {headers:{
+    //     "access_token": token
+    //         }
+    //     })
+    //     .then(res => {
+    //         console.log(res.data)
+    //     })
+    //     .catch(err => {
+    //         console.log("as ",err)
+    //     })
+    // axios.get(`https://${url}/avito_chats/get_chats`, {
+    //     "access_token": token
+    // })
+    // .then(res => {
+    //     console.log(res.data)
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    // })
 
     return(
 
@@ -140,7 +167,7 @@ export const Chats = () => {
 
                         <div className="InputBlock">
 
-                            <div className="IconSearch" >
+                            <div className="IconSearch pointer" >
                                 <CiSearch size={40} />
                             </div>
                             <input className="Input" placeholder="Поиск ...">
@@ -219,47 +246,15 @@ export const Chats = () => {
                         check={false} 
                         time="12:33"
                     />                       
-                    <Message
-                        put="in"
-                        text="Могу вам предложить что то необыкновенно новое! Вы будете в восторге когда узнаете то, чего не знали прежде! Пожалуйста, не волнуйтесь за это ибо вы можете так впечатлиться!"
-                        check={false} 
-                        time="12:34"
-                    />         
-                     <Message
-                        put="out"
-                        text="Я готов услышать это!"
-                        check={true} 
-                        time="12:36"
-                    />          
-                    <Message
-                        put="in"
-                        text="Я надеюсь вас это не шокирует до плохих последствий. Но прежде чем я вам скажу что это, я хочу вас предупредить что это может вас настолько шокировать что я переживаю немного. Но я уверен что эта вещь перевернёт ваше мировозрение, и ваш мир не будет прежнем! Вы можете не беспокоится об этом! Ну я думаю что мы можем приступать к тому, к чему вы еще не готовы! Это действительно то, что вам нужно и от чего вы будете в полном восторге! Я уверен, что вы подобного никогда не видели!!" 
-                        check={false} 
-                        time="12:52"
-                    />                      
-                     <Message
-                        put="out"
-                        text="А-у..."
-                        check={false} 
-                        time="18:01"
-                    />                    
-                     <Message
-                        put="out"
-                        text="..."
-                        check={false} 
-                        time="20:42"
-                    />                    
-                     <Message
-                        put="out"
-                        text="あなたはおおきばか！😡🤬"
-                        check={false} 
-                        time="23:35"
-                    />                    
-
+                    
                 </div> 
 
-                <div className="InputMessage">
-                        
+                <div className="InputMessageBlock">
+
+                    <FaPlus color="#000" size={32} className="pointer __pl"/>
+                    <input className="InputMessage" placeholder="Сообщение"  />
+                    <GoPaperAirplane className="IconSend pointer __pr" size={32}/>
+
                 </div>
 
             </div>
