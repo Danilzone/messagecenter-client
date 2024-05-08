@@ -46,7 +46,7 @@ export const Signup = () => {
                 axios.post(`https://${url}/auth/register`, post_data)
                 .then(res => {
                     console.log("зарегали")
-                    
+                    console.log(res.data.access_token)
                     setLoadingTwo(true)
                     const login_data = {
                         username: email,
@@ -75,8 +75,8 @@ export const Signup = () => {
 
                         const reg_avito_headers = {
                             headers: {
-                                'Authorization': `bearer ${res.data.access_token}`,
                                 'accept': 'application/json',
+                                'Authorization': `Bearer ${res.data.access_token}`,
                                 'Content-Type': 'application/json',
                             }
                         }

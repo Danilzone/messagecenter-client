@@ -73,12 +73,18 @@ export const Chats = () => {
     //     console.log(err)
     // })
 
+    const asd = () => {
+        console.log("AYVA")
+    }
+
     const renderAcc = () => {
         
         return acc_list.map(acc => (
             <div key={acc.id} className="Account" data-index={acc.id}>{acc.name}</div>
         ));
     }
+
+    asd()
 
     const renderChat = () => {
         return chat_list.map(chat => (
@@ -252,7 +258,7 @@ export const Chats = () => {
                 <div className="InputMessageBlock">
 
                     <FaPlus color="#000" size={32} className="pointer __pl"/>
-                    <input className="InputMessage" placeholder="Сообщение"  />
+                    <textarea className="InputMessage" placeholder="Сообщение"  />
                     <GoPaperAirplane className="IconSend pointer __pr" size={32}/>
 
                 </div>

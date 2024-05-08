@@ -318,14 +318,15 @@ body {
 
 .ChatInfoCircle {
   margin-top: 5px;
-  width: 40px;
-  height: 40px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
-  background-color: #A0A0A0;
+  background-color: #13266A;
   display: flex;
   justify-content: center;
   align-items: center;
   color: #F7F7F7;
+  font-size: 13px;
 }
 
 
@@ -454,14 +455,16 @@ body {
   padding: 5px;
   margin: 0 12px;
   background-color: #e0e0e0;
-  font-size: 18px;
+  font-size: 20px;
   color: #5a5a5a;
   font-family: 'Cygre-Medium';
   /* align-items: center; */
   /* border-color: #e0e0e0; */
-  /* border-radius: 50px; */
+  border-radius: 20px;
   align-items: center;
 }
+
+
 
 .InputMessage::placeholder {
   color: #5a5a5a;
