@@ -24,6 +24,13 @@ export const TestAxios = () => {
             'Content-Type': 'application/json',
         }
     }
+    const get_chat_headers = {
+        headers: {
+            'accept': 'application/json',
+            'Authorization': auth_token,
+            'Content-Type': 'application/json',
+        }
+    }
 
     // axios.post(`https://${url}/avito_accounts/register_account`, post_data, post_headers)
     // .then(res => {
@@ -32,21 +39,14 @@ export const TestAxios = () => {
     // .catch(err => {
     //     console.log(err)
     // })
-    const get_chat_headers = {
-        headers: {
-            'accept': 'application/json',
-            'Authorization': auth_token,
-            'Content-Type': 'application/json',
-        }
-    }
+    // axios.get(`https://${url}/avito_chats/get_chats`, get_chat_headers)
+    // .then(res => {
+    //     console.log(res.data)
+    // })
+    // .catch(err => {
+    //     console.log(err)
+    // })
     
-    axios.get(`https://${url}/avito_chats/get_chats`, get_chat_headers)
-    .then(res => {
-        console.log(res.data)
-    })
-    .catch(err => {
-        console.log(err)
-    })
 
     return(
 

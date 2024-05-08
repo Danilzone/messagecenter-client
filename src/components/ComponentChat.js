@@ -5,14 +5,9 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { IoCheckmarkOutline } from "react-icons/io5";
 export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, amountMessage}) => {
     
-    const openChat = () => {
-        console.log("chat id", id)
-
-    }
-
     return(
 
-    <div className="Chat" onClick={openChat}>
+    <div className="Chat">
         <div className="circle __CircleChat" id={color}/>
     
         <div className="ChatInfo">
@@ -33,7 +28,9 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
             <div className="TopInfoBlock">
                 <div className="Checked">
                     {
-                        checkedInfo === true ? <IoCheckmarkDoneOutline size={22} color="#A0A0A0"/> : <IoCheckmarkOutline  size={22} color="#A0A0A0"/>
+                        amountMessage > 0 ? "" : checkedInfo === true ? <IoCheckmarkDoneOutline size={22} color="#A0A0A0"/> : <IoCheckmarkOutline  size={22} color="#A0A0A0"/> 
+                        // 
+                        
                     }
                 </div>
                 <div className="DateText">
@@ -42,9 +39,9 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
             </div>
 
             <div className="BottomInfoBlock">
-                <div className="ChatInfoCircle">
+               {amountMessage === 0 ? "" : <div className="ChatInfoCircle">
                     {amountMessage}
-                </div>
+                </div> }
             </div>
 
         </div>

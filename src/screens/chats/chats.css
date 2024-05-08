@@ -184,9 +184,10 @@ body {
   color: #868282;
   font-family: 'Cygre-Light';
 }
-.Input {
+.InputSeacrch {
   height: 100%;
-  width: 100%;
+  /* width: 100%; */
+  flex: 1;
   padding-left: 80px;
 }
 
@@ -332,11 +333,12 @@ body {
 
 
 .MessageBlock {
+  display: none;
+  /* display: flex; */
   position: fixed;
   right: 0;
   width: 49%;
   height: 100%;
-  display: flex;
   flex-direction: column;
   background-color: #f7f7f7;
 }
