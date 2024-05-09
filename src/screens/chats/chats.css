@@ -1,23 +1,149 @@
 
+
+/* Montserrat Black */
 @font-face {
-  font-family: 'Cygre-Thin';
-  src: url(../../fonts/Cygre-Thin.ttf); 
+  font-family: 'Montserrat Black';
+  src: local('Montserrat-Black'), url( ../../fonts/Montserrat-Black.ttf) format('truetype');
+  font-weight:900;
+  font-style: normal;
 }
 
+/* Montserrat Black Italic */
 @font-face {
-  font-family: 'Cygre-Light';
-  src: url(../../fonts/Cygre-Light.ttf); 
+  font-family: 'Montserrat Black Italic';
+  src: local('Montserrat-BlackItalic'), url(  ../../fonts/Montserrat-BlackItalic.ttf)format('truetype');
+font-weight: 900;
+  font-style:italic;
 }
 
+/* Montserrat Bold */
 @font-face {
-  font-family: 'Cygre-Bold';
-  src: url(../../fonts/Cygre-Bold.ttf); 
+  font-family: 'Montserrat Bold';
+  src: local('Montserrat-Bold'), url(  ../../fonts/Montserrat-Bold.ttf) format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
 
+/* Montserrat Bold Italic */
 @font-face {
-  font-family: 'Cygre-Medium';
-  src: url(../../fonts/Cygre-Medium.ttf); 
+  font-family: 'Montserrat Bold Italic';
+  src: local('Montserrat-BoldItalic'), url( ../../fonts/Montserrat-BoldItalic.ttf) format('truetype');
+  font-weight: bold;
+  font-style:italic;
 }
+
+/* MontserratExtraBold */
+@font-face {
+  font-family: 'Montserrat ExtraBold';
+  src: local('Montserrat-ExtraBold'), url( ../../fonts/Montserrat-ExtraBold.ttf) format('truetype');
+  font-weight: 800;
+  font-style: normal;
+}
+
+/* Montserrat ExtraBold Italic */
+@font-face {
+  font-family: 'Montserrat ExtraBold Italic';
+  src: local('Montserrat-ExtraBoldItalic'), url( ../../fonts/Montserrat-ExtraBoldItalic.ttf) format('truetype');
+  font-weight: 800;
+  font-style: italic;
+}
+
+/* Montserrat ExtraLight */
+@font-face {
+  font-family: 'Montserrat ExtraLight';
+  src: local('Montserrat-ExtraLight'), url( ../../fonts/Montserrat-ExtraLight.ttf) format('truetype');
+  font-weight: 200;
+  font-style: normal;
+}
+
+/* Montserrat ExtraLight Italic */
+@font-face {
+  font-family: 'Montserrat ExtraLight Italic';
+  src: local('Montserrat-ExtraLightItalic'), url( ../../fonts/Montserrat-ExtraLightItalic.ttf) format('truetype');
+  font-weight: 200;
+  font-style: italic;
+}
+
+/* Montserrat Italic */
+@font-face {
+  font-family: 'Montserrat Italic';
+  src: local('Montserrat-Italic'), url( ../../fonts/Montserrat-Italic.ttf) format('truetype');
+  font-weight: normal;
+  font-style: italic;
+}
+
+/* Montserrat Light */
+@font-face {
+  font-family: 'Montserrat Light';
+  src: local('Montserrat-Light'), url( ../../fonts/Montserrat-Light.ttf) format('truetype');
+  font-weight: 300;
+  font-style: normal;
+}
+
+/* Montserrat Light Italic */
+@font-face {
+  font-family: 'Montserrat Light Italic';
+  src: local('Montserrat-LightItalic'), url( ../../fonts/Montserrat-LightItalic.ttf) format('truetype');
+  font-weight: 300;
+  font-style: italic;
+}
+
+/* Montserrat Medium */
+@font-face {
+  font-family: 'Montserrat Medium';
+  src: local('Montserrat-Medium'), url( ../../fonts/Montserrat-Medium.ttf) format('truetype');
+  font-weight: 500;
+  font-style: normal;
+}
+
+/* Montserrat Medium Italic */
+@font-face {
+  font-family: 'Montserrat Medium Italic';
+  src: local('Montserrat-MediumItalic'), url( ../../fonts/Montserrat-MediumItalic.ttf) format('truetype');
+  font-weight: 500;
+  font-style: italic;
+}
+
+/* Montserrat Regular */
+@font-face {
+  font-family: 'Montserrat Regular';
+  src: local('Montserrat-Regular'), url( ../../fonts/Montserrat-Regular.ttf) format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+/* Montserrat SemiBold */
+@font-face {
+  font-family: 'Montserrat SemiBold';
+  src: local('Montserrat-SemiBold'), url( ../../fonts/Montserrat-SemiBold.ttf) format('truetype');
+  font-weight:600;
+  font-style: normal;
+}
+
+/* MontserratSemiBold Italic */
+@font-face {
+  font-family: 'Montserrat SemiBold Italic';
+  src: local('Montserrat-SemiBoldItalic'), url( ../../fonts/Montserrat-SemiBoldItalic.ttf) format('truetype');
+  font-weight: 600;
+  font-style: italic;
+}
+
+/* Montserrat Thin */
+@font-face {
+  font-family: 'Montserrat Thin';
+  src: local('Montserrat-Thin'), url( ../../fonts/Montserrat-Thin.ttf) format('truetype');
+  font-weight: 100;
+  font-style: normal;
+}
+
+/* Montserrat Thin Italic */
+@font-face {
+  font-family: 'Montserrat Thin Italic';
+  src: local('Montserrat-ThinItalic'), url( ../../fonts/Montserrat-ThinItalic.ttf) format('truetype');
+  font-weight: 100;
+  font-style: italic;
+}
+
 
 * {
   margin: 0;
@@ -196,7 +322,7 @@ body {
 
 ::placeholder {
   color: #868282;
-  font-family: 'Cygre-Light';
+  font-family: 'Montserrat Light';
 }
 .InputSearch {
   height: 100%;
@@ -276,7 +402,7 @@ body {
 }
 
 .UserName {
-  font-family: 'Cygre-Bold';
+  font-family: 'Montserrat Bold';
   font-size: 24px;
   color: #000;
   width: 100%;
@@ -287,7 +413,7 @@ body {
 
 .ProductName {
   font-size: 20px;
-  font-family: 'Cygre-Medium';
+  font-family: 'Montserrat Medium';
   color: #000;
   width: 80%;
   white-space: nowrap;
@@ -296,7 +422,7 @@ body {
 }
 
 .LastMessage {
-  font-family: 'Cygre-Medium';
+  font-family: 'Montserrat Medium';
   color: #A0A0A0;
   font-size: 16px;
   width: 50%;
@@ -397,13 +523,13 @@ body {
 
 .ChatName {
   font-size: 20px;
-  font-family: 'Cygre-Bold';
+  font-family: 'Montserrat Bold';
 }
 
 .ChatNameProduct {
   margin-top: 10px;
   font-size: 18px;
-  font-family: 'Cygre-Medium';
+  font-family: 'Montserrat Medium';
 }
 
 .tabs {
@@ -440,7 +566,7 @@ body {
 
 
 .Message {
-  max-width: 49%;
+  max-width: 60%;
   height: auto;
   padding: 10px;
   margin-bottom: 5px;
@@ -493,7 +619,7 @@ body {
   background-color: #e0e0e0;
   font-size: 20px;
   color: #5a5a5a;
-  font-family: 'Cygre-Medium';
+  font-family: 'Montserrat Medium';
   /* align-items: center; */
   /* border-color: #e0e0e0; */
   border-radius: 20px;
