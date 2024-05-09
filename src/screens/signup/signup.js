@@ -6,6 +6,7 @@ import PacmanLoader from 'react-spinners/PacmanLoader';
 import RingLoader from 'react-spinners/RingLoader';
 
 import '../signin/signin.css' 
+import '../signin/adapt.css'
 export const Signup = () => {
     const navigation = useNavigate(); // получаем history
 

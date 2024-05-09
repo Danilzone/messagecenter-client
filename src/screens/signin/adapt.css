@@ -1,3 +1,24 @@
-@media screen {
-    
+@media screen and (max-width: 430px) {
+    .idata {
+        padding: 20px;
+    }
+}
+@media screen and (max-width: 395px) {
+    .idata {
+        padding: 10px;
+    }
+    input {
+        width: 300px;
+    }
+    .btn {
+        width: 250px;
+    }
+}
+@media screen and (max-width: 347px) {
+    input {
+        width: 200px;
+    }
+    .btn {
+        width: 170px;
+    }
 }

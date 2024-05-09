@@ -6,7 +6,7 @@ import { IoCheckmarkOutline } from "react-icons/io5";
 import { MessageBlock } from "./ComponentsMessageBlock";
 
 
-export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, amountMessage}) => {
+export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, amountMessage, settingAcc}) => {
     
     return(
 
@@ -42,9 +42,13 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
             </div>
 
             <div className="BottomInfoBlock">
-               {amountMessage === 0 ? "" : <div className="ChatInfoCircle">
-                    {amountMessage}
-                </div> }
+               {
+                !settingAcc ? 
+                amountMessage === 0 ? "" : <div className="ChatInfoCircle">
+                                            {amountMessage}
+                                        </div>
+                            : <div className="CircleSettingItem"/>
+                }
             </div>
 
         </div>

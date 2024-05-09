@@ -71,7 +71,9 @@ body {
 }
 
 .circle {
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 43px;
   height: 43px;
   margin-bottom: 37px;
@@ -103,7 +105,7 @@ body {
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: #f4f4f4;
+  background-color: #e0e0e0;
   margin-bottom: 12px;
 }
 
@@ -155,6 +157,18 @@ body {
   overflow: auto;
 }
 
+.AccOption {
+  cursor: pointer;
+  background-color: #eaeaea;
+  width: 43px;
+  height: 43px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
 .SearchBlock {
   margin-top: 30px;
   width: 100%;
@@ -184,9 +198,8 @@ body {
   color: #868282;
   font-family: 'Cygre-Light';
 }
-.InputSeacrch {
+.InputSearch {
   height: 100%;
-  /* width: 100%; */
   flex: 1;
   padding-left: 80px;
 }
@@ -207,6 +220,7 @@ body {
 }
 
 .Dots {
+  cursor: pointer;
   margin-left: 18px;
 }
 
@@ -264,12 +278,20 @@ body {
   font-family: 'Cygre-Bold';
   font-size: 24px;
   color: #000;
+  width: 100%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .ProductName {
   font-size: 20px;
   font-family: 'Cygre-Medium';
   color: #000;
+  width: 80%;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 .LastMessage {
@@ -386,7 +408,6 @@ body {
 }
 
 .elips {
-  cursor: pointer;
   color: #fff;
   display: flex;
   justify-content: center;
@@ -459,7 +480,7 @@ body {
 
 .InputMessage {
   flex: 1;
-  padding: 5px;
+  padding: 10px;
   margin: 0 12px;
   background-color: #e0e0e0;
   font-size: 20px;
@@ -474,6 +495,15 @@ body {
 .InputMessage::placeholder {
   color: #5a5a5a;
   font-size: 24px;
+}
+
+.CircleSettingItem {
+  margin-top: 5px;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 2px #A0A0A0 solid;
+  background-color: transparent;
 }
 
 .pointer {

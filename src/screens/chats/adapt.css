@@ -1,0 +1,113 @@
+@media screen and (max-width: 1260px) {
+    .UserName {
+        font-size: 20px;
+    }
+    .ProductName {
+        font-size: 18px;
+    }
+
+}
+@media screen and (max-width: 1125px) {
+        .Message {
+            max-width: 60%;
+        }
+}
+
+@media screen and (max-width: 1162px) {
+    .circle {
+        width: 39px;
+        height: 39px;
+    }
+ .SearchBlock {
+    justify-content: space-around;
+ }
+}
+@media screen and (max-width: 1096px) {
+    .Dots {
+        margin-left: 10px;
+    }
+}
+
+@media screen and (max-width: 1057px) {
+    .MainSideBar {
+        width: 45%;
+    }
+    .MessageBlock {
+        width: 54%;
+    } 
+    .InputSearch {
+        width: 100%;
+    }
+    .SearchBlock {
+        width: 90%;
+    }
+    .InputBlock {
+        width: 90%;
+    }
+    .Dots {
+        margin: 0;
+    }
+    .UserName {
+        font-size: 18px;
+    }
+    .ProductName {
+        font-size: 16px;
+    }
+    .LastMessage {
+        font-size: 15px;
+    }
+
+}
+
+@media screen and (max-width: 976px) {
+    .OtherInfo {
+        padding-right: 30px;
+    }
+}
+
+@media screen and (max-width: 947px) {
+    .SearchBlock {
+        width: 85%;
+    }
+}
+
+@media (min-width: 980px) and (max-height: 887px) {
+    .AccountsList {
+        max-height: 250px;
+    }
+}
+
+@media (min-width: 980px) and (max-height: 800px) {
+    .AccountsList {
+        max-height: 220px;
+    }
+}
+@media (min-width: 980px) and (max-height: 765px) {
+    .AccountsList {
+        max-height: 190px;
+    }
+}
+@media (min-width: 980px) and (max-height: 740px) {
+    .AccountsList {
+        max-height: 140px;
+    }
+}
+@media (min-width: 980px) and (max-height: 700px) {
+    .AccountsList {
+        max-height: 110px;
+    }
+}
+@media (min-width: 980px) and (max-height: 650px) {
+    .AccountsList {
+        max-height: 90px;
+    }
+}
+@media (min-width: 980px) and (max-height: 600px) {
+    .AccountsList {
+        max-height: 40px;
+    }
+}
+
+@media screen and (max-width: 790px) {
+    
+}
