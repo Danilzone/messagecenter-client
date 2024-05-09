@@ -31,7 +31,7 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
             <div className="TopInfoBlock">
                 <div className="Checked">
                     {
-                        amountMessage > 0 ? "" : checkedInfo === true ? <IoCheckmarkDoneOutline size={22} color="#A0A0A0"/> : <IoCheckmarkOutline  size={22} color="#A0A0A0"/> 
+                        amountMessage > 0 ? "" : checkedInfo === true ? <IoCheckmarkDoneOutline size={20} color="#A0A0A0"/> : <IoCheckmarkOutline  size={20} color="#A0A0A0"/> 
                         // 
                         
                     }
@@ -41,7 +41,7 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
                 </div>
             </div>
 
-            <div className="BottomInfoBlock">
+            {/* <div className="BottomInfoBlock"> */}
                {
                 !settingAcc ? 
                 amountMessage === 0 ? "" : <div className="ChatInfoCircle">
@@ -49,7 +49,7 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
                                         </div>
                             : <div className="CircleSettingItem"/>
                 }
-            </div>
+            {/* </div> */}
 
         </div>
 
