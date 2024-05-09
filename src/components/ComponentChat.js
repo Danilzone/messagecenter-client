@@ -3,11 +3,14 @@ import { GoPaperAirplane } from "react-icons/go";
 import { CiSearch } from "react-icons/ci";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { IoCheckmarkOutline } from "react-icons/io5";
+import { MessageBlock } from "./ComponentsMessageBlock";
+
+
 export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, amountMessage}) => {
     
     return(
 
-    <div className="Chat">
+    <div className="Chat" >
         <div className="circle __CircleChat" id={color}/>
     
         <div className="ChatInfo">

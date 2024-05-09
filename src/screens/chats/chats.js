@@ -10,11 +10,18 @@ import{  useState } from 'react';
 
 import { Chat } from "../../components/ComponentChat";
 import './chats.css'
+
 export const Chats = () => {
     const url = "messagecenter-9p86.onrender.com"
     let location = useLocation();
     const token = location.state.token
 
+    const [openChat, setOpenChat] = useState(null)
+
+    const openChatHandler = (id, userName, product) => {
+        setOpenChat({ id, userName, product });
+    }
+    
     const acc_list = [
         {
             id: 1,
@@ -50,106 +57,6 @@ export const Chats = () => {
             date: "21.12.2012",
             amount_message: 1,
         },
-        {
-            id: 1 ,
-            color: "green",
-            user_name: "Иван Петров",
-            product: "Умные часы",
-            last_message: "Какие функции важнее всего для вас в умных часах?",
-            checked: true,
-            date: "10.01.2022",
-            amount_message: 3,
-            },
-            {
-            id: 2 ,
-            color: null,
-            user_name: "Анна Иванова",
-            product: "Фитнес браслет",
-            last_message: "Какой бренд фитнес браслета вы рекомендуете?",
-            checked: true,
-            date: "15.02.2022",
-            amount_message: 0,
-            },
-            {
-            id: 3,
-            color: "red",
-            user_name: "Мария Сидорова",
-            product: "Гейминг монитор",
-            last_message: "Какой размер экрана лучше выбрать для гейминга?",
-            checked: true,
-            date: "05.03.2022",
-            amount_message: 2,
-            },
-            {
-            id: 4 ,
-            color: null,
-            user_name: "Дмитрий Козлов",
-            product: "Фотоаппарат",
-            last_message: "Какие параметры важны при выборе фотоаппарата?",
-            checked: false,
-            date: "18.04.2022",
-            amount_message: 0,
-            },
-            {
-            id: 5 ,
-            color: "gray",
-            user_name: "Ольга Николаева",
-            product: "Смартфон",
-            last_message: "Какая операционная система вам больше нравится?",
-            checked: true,
-            date: "30.05.2022",
-            amount_message: 1,
-            },
-            {
-            id: 6 ,
-            color: null,
-            user_name: "Алексей Игнатьев",
-            product: "Наушники",
-            last_message: "Какой тип наушников предпочтительнее для занятий спортом?",
-            checked: true,
-            date: "12.06.2022",
-            amount_message: 1,
-            },
-            {
-            id: 7 ,
-            color: null,
-            user_name: "Екатерина Павлова",
-            product: "Видеокамера",
-            last_message: "Как выбрать качественную видеокамеру для съемки видеоблога?",
-            checked: true,
-            date: "24.07.2022",
-            amount_message: 0,
-            },
-            {
-            id: 8 ,
-            color: null,
-            user_name: "Артем Федоров",
-            product: "Игровая консоль",
-            last_message: "Какую игровую консоль выбрать для игр с друзьями?",
-            checked: true,
-            date: "06.08.2022",
-            amount_message: 2,
-            },
-            {
-            id: 9 ,
-            color: "blue",
-            user_name: "София Кузнецова",
-            product: "Планшет",
-            last_message: "Какой планшет лучше всего подходит для работы и учебы?",
-            checked: false,
-            date: "19.09.2022",
-            amount_message: 0,
-            },
-            {
-            id: 10 ,
-            color: "gray",
-            user_name: "Никита Шевцов",
-            product: "Ноутбук",
-            last_message: "Какой ноутбук выбрать для работы с графикой?",
-            checked: true,
-            date: "01.10.2022",
-            amount_message: 1,
-            }
 
     ]
 
@@ -163,13 +70,7 @@ export const Chats = () => {
         }
     }
 
-    // axios.get(`https://${url}/avito_chats/get_hints`, headers_auth)
-    // .then(res => {
-    //     console.log(res.data)
-    // })
-    // .catch(err => {
-    //     console.log(err)
-    // })
+
 
     const [searchInput, setSearchInput] = useState('');
     
@@ -182,7 +83,12 @@ export const Chats = () => {
     });
 
 
-    
+    const handleColorClick = (color, id) => {
+        const chatItem = chat_list.find((item) => item.id == id);
+        console.log(chatItem)
+        chatItem.color = color
+       
+    }
     
     // const post_header = {
     //     headers: {
@@ -198,9 +104,6 @@ export const Chats = () => {
     // .catch(err => {
     //     console.log(err)
     // })
-    const qw = (id, name) => {
-        console.log(id, name)
-    }
 
     const renderAcc = () => {
         
@@ -255,6 +158,7 @@ export const Chats = () => {
     //     console.log(err)
     // })
 
+
     return(
         
         <div className="wrapper">
@@ -306,7 +210,6 @@ export const Chats = () => {
                             </input>
 
                         </div>
-                        {/* <GoPaperAirplane className="IconSend" size={32}/> */}
                         <PiDotsThreeOutlineLight className="Dots" size={32} />  
 
 
@@ -319,20 +222,23 @@ export const Chats = () => {
 
                         <div className="scrollbox-inner">
                             {
-                            RenderFilteredChatList.map((item) => (
-                                <Chat 
-                                onClick={qw(item.id, item.user_name)}
-                                    key={item.id}
-                                    id={item.id}
-                                    color={item.color}
-                                    userName={item.user_name}
-                                    product={item.product}
-                                    lastMessage={item.last_message}
-                                    checkedInfo={item.checked}
-                                    dateText={item.date}
-                                    amountMessage={item.amount_message}
-                                />
-                            ))
+                                RenderFilteredChatList.map((item) => (
+                                    <div key={item.id} className="ChatBlock" onClick={() => {
+                                        console.log(item.color)
+                                           openChatHandler(item.id,item.user_name, item.product)
+                                        }}>
+                                        <Chat 
+                                            id={item.id}
+                                            color={item.color}
+                                            userName={item.user_name}
+                                            product={item.product}
+                                            lastMessage={item.last_message}
+                                            checkedInfo={item.checked}
+                                            dateText={item.date}
+                                            amountMessage={item.amount_message}
+                                        />
+                                    </div>
+                                ))
                             }
                         </div>
 
@@ -344,11 +250,12 @@ export const Chats = () => {
 
             </div>
 
-            {/*  */}
-            <MessageBlock
-                chatName="qwcibqc"
-                ChatNamePtoduct="av asc"
-            />
+            
+            {
+                openChat && (
+                    <MessageBlock id={openChat.id} chatName={openChat.userName} product={openChat.product} onClickColor={handleColorClick} />
+                )
+            }
 
         </div>
 

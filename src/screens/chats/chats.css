@@ -331,10 +331,15 @@ body {
 }
 
 
+.ChatBlock {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}
 
 .MessageBlock {
-  display: none;
-  /* display: flex; */
+  /* display: none; */
+  display: flex;
   position: fixed;
   right: 0;
   width: 49%;
@@ -465,8 +470,6 @@ body {
   border-radius: 20px;
   align-items: center;
 }
-
-
 
 .InputMessage::placeholder {
   color: #5a5a5a;

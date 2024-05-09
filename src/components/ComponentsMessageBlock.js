@@ -4,7 +4,7 @@ import { FaPlus } from "react-icons/fa6";
 import { LuPlus } from "react-icons/lu";
 import { GoPaperAirplane } from "react-icons/go";
 
-export const MessageBlock = ({chatName, ChatNamePtoduct}) => {
+export const MessageBlock = ({id, chatName, product, onClickColor}) => {
 
     const [messageText, setMessageText] = useState('')
 
@@ -15,6 +15,13 @@ export const MessageBlock = ({chatName, ChatNamePtoduct}) => {
     const sendMessage = () => {
         console.log(messageText)
     }
+
+    const handleColorClick = (color, id) => {
+        // Вызываем функцию, которая передается через props в компонент MessageBlock
+        // и передаем цвет и id
+        onClickColor(color, id);
+    }
+
     return(
 
        <div className="MessageBlock">
@@ -26,24 +33,24 @@ export const MessageBlock = ({chatName, ChatNamePtoduct}) => {
                            {chatName}
                        </div>
                        <div className="ChatNameProduct">
-                           {ChatNamePtoduct}
+                           {product}
                        </div>
                    </div>
 
                    <div className="tabs">
-                       <div className="elips" id="blue">
+                       <div className="elips" id="blue"    onClick={() => handleColorClick("blue", id)}>
+                           <LuPlus color="#fff" size={20} />
+                       </div>
+                       <div className="elips" id="yellow"  onClick={() => handleColorClick("yellow", id)}>
                            <LuPlus color="#fff" size={20}/>
                        </div>
-                       <div className="elips" id="yellow">
+                       <div className="elips" id="gray"   onClick={() => handleColorClick("gray", id)}>
                            <LuPlus color="#fff" size={20}/>
                        </div>
-                       <div className="elips" id="gray">
+                       <div className="elips" id="green"  onClick={() => handleColorClick("green", id)}>
                            <LuPlus color="#fff" size={20}/>
                        </div>
-                       <div className="elips" id="green">
-                           <LuPlus color="#fff" size={20}/>
-                       </div>
-                       <div className="elips" id="red">
+                       <div className="elips" id="red"    onClick={() => handleColorClick("red", id)}>
                            <LuPlus color="#fff" size={20}/>
                        </div>
                    </div>
@@ -59,7 +66,7 @@ export const MessageBlock = ({chatName, ChatNamePtoduct}) => {
                />                       
                <Message
                    put="in"
-                   text={ChatNamePtoduct}
+                   text={product}
                    check={false} 
                    time="12:33"
                />                       

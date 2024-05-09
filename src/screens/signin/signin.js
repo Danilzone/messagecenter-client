@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom"
-
+import bcrypt from 'bcryptjs';
 import axios from "axios"
 import './signin.css'
+import './adapt.css'
 
 
 import PacmanLoader from 'react-spinners/PacmanLoader';
@@ -12,6 +13,10 @@ import PacmanLoader from 'react-spinners/PacmanLoader';
 const url = "messagecenter-9p86.onrender.com"
 
 export const Signin = () => {
+
+     let zxc="string"
+     const saltRounds = 10;
+
     const navigation = useNavigate();
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -36,7 +41,6 @@ export const Signin = () => {
             const post_data = {
                 username: email,
                 password: password,
-
             }
 
             const post_headers  = {
@@ -48,7 +52,30 @@ export const Signin = () => {
 
             axios.post(`https://${url}/auth/jwt/login`, post_data, post_headers)
             .then(res => {
-                navigation("/chats",  {state: {token: res.data.access_token }})
+
+               const token = res.data.access_token
+               
+                let socket = new WebSocket(`wss://${url}/avito_webhook/ws`)
+               socket.onopen = function(e) {
+                   socket.send(email);
+                   console.log("Отправка на сервер", e);
+               };
+               socket.onmessage = function(event) {
+                   console.log(`Data:: `, event.data);
+               };
+               socket.onclose = function(event) {
+                   if (event.wasClean) {
+                       console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+                   } else {
+                       console.log('[close] Connection died');
+                   }
+               };
+               socket.onerror = function(error) {
+                   console.log(`[error]`);
+               };
+
+
+                // navigation("/chats",  {state: {token: res.data.access_token }})
             })
             .catch(err => {
                 console.log(err.response.status)
