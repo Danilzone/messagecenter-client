@@ -82,16 +82,16 @@ export const Signup = () => {
                             }
                         }
 
-                        axios.post(`https://${url}/avito_accounts/register_account`, reg_avito_data, reg_avito_headers)
-                        .then(res => {
-                            console.log("reg avito", res)
-                        })
-                        .catch(err => {
-                            console.log("reg avito", err)
-                        })
+                        // axios.post(`https://${url}/avito_accounts/register_account`, reg_avito_data, reg_avito_headers)
+                        // .then(res => {
+                        //     console.log("reg avito", res)
+                        // })
+                        // .catch(err => {
+                        //     console.log("reg avito", err)
+                        // })
 
                         
-                        // navigation("/chats", {state: {token: res.data.access_token }})
+                        navigation("/chats", {state: {token: res.data.access_token }})
 
                     })
                     .catch(err => {
