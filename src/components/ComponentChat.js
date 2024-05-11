@@ -11,48 +11,53 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
     return(
 
     <div className="Chat" >
-        <div className="circle __CircleChat" id={color}/>
-    
-        <div className="ChatInfo">
-            <div className="UserName">
-                {userName}
-            </div>
-
-            <div className="ProductName">
-                «{product}»
-            </div>
-
-            <div className="LastMessage">
-                {lastMessage}
-            </div>
+        <div className="FolderChat">
+            <div className="circle __CircleChat" id={color}/>   
         </div>
-    
-        <div className="OtherInfo">
-            <div className="TopInfoBlock">
-                <div className="Checked">
-                    {
-                        amountMessage > 0 ? "" : checkedInfo === true ? <IoCheckmarkDoneOutline size={20} color="#A0A0A0"/> : <IoCheckmarkOutline  size={20} color="#A0A0A0"/> 
-                        // 
-                        
-                    }
+        <div className="Information">
+            <div className="ChatInfo">
+                <div className="UserName">
+                    {userName}
                 </div>
-                <div className="DateText">
-                    {dateText}
+
+                <div className="ProductName">
+                    «{product}»
+                </div>
+
+                <div className="LastMessage">
+                    {lastMessage}
                 </div>
             </div>
 
-            {/* <div className="BottomInfoBlock"> */}
+
+            <div className="OtherInfo">
+                <div className="TopInfoBlock">
+                    <div className="Checked">
+                        {
+                            amountMessage > 0 ? "" : checkedInfo === true ? <IoCheckmarkDoneOutline size={20} color="#A0A0A0"/> : <IoCheckmarkOutline  size={20} color="#A0A0A0"/> 
+                            // 
+                            
+                        }
+                    </div>
+                    <div className="DateText">
+                        {dateText}
+                    </div>
+                </div>
+
+           
                {
-                !settingAcc ? 
-                amountMessage === 0 ? "" : <div className="ChatInfoCircle">
-                                            {amountMessage}
-                                        </div>
+                    !settingAcc ? 
+                    amountMessage == 0 ? "" : <div className="ChatInfoCircle">
+                                                    {amountMessage}
+                                                </div>
                             : <div className="CircleSettingItem"/>
                 }
-            {/* </div> */}
-
+          
         </div>
 
+
+
+        </div>
     </div>            
 
 

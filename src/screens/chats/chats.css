@@ -168,9 +168,9 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 50%;
+  width: 53%;
   height: 100%;
-  background-color: #a0a0a0;
+  background-color: #EBEBEB;
   display: flex;
   flex-direction: row;
 }
@@ -178,7 +178,9 @@ body {
 .OptionsPanel {
   padding-top: 35px;
   padding-bottom: 20px;
-  width: 100px;
+  margin-left: 10px;
+  margin-right: 10px;
+  /* width: 100px; */
   height: 100%;
   display: flex;
   flex-direction: column;
@@ -282,17 +284,31 @@ body {
   align-items: center;
   overflow: auto;
 }
-
+.Information {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 80%;
+  margin-left: 5px;
+  border-bottom: 4px #E0E0E0 solid;
+}
 .AccOption {
   cursor: pointer;
-  background-color: #eaeaea;
   width: 43px;
   height: 43px;
   display: flex;
   justify-content: center;
   align-items: center;
-  border-radius: 50%;
   margin-bottom: 10px;
+}
+
+.Search {
+  display: flex;
+  flex-direction: row;
+  margin-top: 30px;
+  justify-content: start;
+  align-items: center;
+
 }
 
 .SearchBlock {
@@ -309,8 +325,6 @@ body {
 .InputBlock {
   width: 80%;
   height: 50px;
-  /* background-color: #dad5d5; */
-  /* padding-left: 20px; */
   margin-left: 19px;
   border-radius: 50px;
   display: flex;
@@ -324,8 +338,10 @@ body {
   color: #868282;
   font-family: 'Montserrat Light';
 }
+
 .InputSearch {
-  height: 100%;
+  background-color: #e0e0e0;
+  height: 50px;
   flex: 1;
   padding-left: 80px;
 }
@@ -342,7 +358,7 @@ body {
 
 .IconSend {
   transform: rotate(-40deg);
-  margin-left: 18px;
+  margin-left: 1px;
 }
 
 .Dots {
@@ -355,7 +371,7 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #EBEBEB;
+  background-color: #F7F7F7;
   display: flex;
   flex-direction: column;
 }
@@ -380,25 +396,29 @@ body {
   flex-direction: row;
   align-items: center;
   background-color: #f7f7f7;
+  /* border: 1px red solid; */
   /* margin-bottom: 5px */
-  border-bottom: #e0e0e0 3px solid;
+  /* border-bottom: #e0e0e0 3px solid; */
 }
-
+.FolderChat {
+  /* border: 2px black solid; */
+}
 .__CircleChat {
   width: 54px;
   height: 54px;
   margin-left: 20px;
+  margin-right: 5px;
   margin-top: auto;
   margin-bottom: auto;
 }
 
 .ChatInfo {
-  width: 40%;
+  width: 50%;
   height: 100%;
   display: flex;
   flex-direction: column;
   justify-content: space-around;
-  margin-left: 10px;
+  /* margin-left: 10px; */
 }
 
 .UserName {
@@ -440,7 +460,7 @@ body {
   /* flex-direction: column; */
   justify-content: center;
   align-items: center;
-  padding-right: 20px;
+  margin-right: 20px;
 }
 
 .TopInfoBlock {
@@ -484,6 +504,7 @@ body {
   align-items: center;
   color: #F7F7F7;
   font-size: 10px;
+  margin-right: 20px;
 }
 
 
@@ -494,11 +515,10 @@ body {
 }
 
 .MessageBlock {
-  /* display: none; */
   display: flex;
   position: fixed;
   right: 0;
-  width: 49%;
+  width: 47%;
   height: 100%;
   flex-direction: column;
   background-color: #f7f7f7;
@@ -536,6 +556,7 @@ body {
   display: flex;
   width: 100%;
   margin-top: 20px;
+  margin-bottom: 20px;
   flex-direction: row;
   justify-content: center;
   align-items: center;
@@ -606,7 +627,7 @@ body {
   height: 10%;
   display: flex;
   flex-direction: row;
-  background-color: #eaeaea;
+  background-color: #F4F4F4;
   justify-content: space-around;
   align-items: center;
   /* padding-left: 10px; */
@@ -614,22 +635,25 @@ body {
 
 
 .InputMessage {
-  flex: 1;
-  padding: 10px;
-  margin: 0 12px;
-  background-color: #e0e0e0;
-  font-size: 20px;
-  color: #5a5a5a;
-  font-family: 'Montserrat Medium';
-  /* align-items: center; */
-  /* border-color: #e0e0e0; */
-  border-radius: 20px;
-  align-items: center;
+  width: 100%;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 40px;
+  border-radius: 30px;
+  display: flex;
+  padding: 3px;
+  padding-left: 20px;
+  font-size: 25px;
+  background-color: #EBEBEB;
+  border: 1px #EBEBEB solid;
+  outline: none;
 }
 
 .InputMessage::placeholder {
   color: #5a5a5a;
-  font-size: 24px;
+  font-size: 20px;
+  position: absolute;
+  margin-top: 5px;
 }
 
 .CircleSettingItem {
@@ -639,6 +663,7 @@ body {
   border-radius: 50%;
   border: 2px #A0A0A0 solid;
   background-color: transparent;
+  margin-right: 20px;
 }
 
 .pointer {
@@ -658,7 +683,7 @@ body {
   bottom: 0 ;
   position: absolute;
   width: 100%;
-  height: 100px;
+  height: 70px;
   background-color: #F7F7F7;
 }
 .TopColorMobilePanel {
@@ -674,11 +699,42 @@ body {
 
 .elipsMob {
   display: flex;
-  width: 60%;
-  height: 35px;
+  width: 15%;
+
+  height: 25px;
   margin-left: 5px;
   margin-right: 5px;
   border-radius: 50px;
   justify-content: center;
   align-items: center;
+}
+
+.Back { 
+  display: none;
+
+  cursor: pointer;
+  position: absolute;
+  margin: 10px;
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  /* background-color: rebeccapurple; */
+}
+
+.loading {
+  z-index: 999;
+  min-height: 100vh;
+  min-width: 100vw;
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.loadtext {
+  margin-top: 20px;
+  color: #d6d536;
 }
