@@ -43,11 +43,16 @@ export const Signup = () => {
     
                 }
 
+                const post_headers = {
+                    headers: {
+                        'accept': 'application/json',
+                        'Content-Type': 'application/json',
+                    }
+                }
 
-                axios.post(`https://${url}/auth/register`, post_data)
+                axios.post(`https://${url}/auth/register`, post_data, post_headers)
                 .then(res => {
                     console.log("зарегали")
-                    console.log(res.data.access_token)
                     setLoadingTwo(true)
                     const login_data = {
                         username: email,
@@ -59,39 +64,22 @@ export const Signup = () => {
                             'Content-Type': 'application/x-www-form-urlencoded',
                         }
                     }
-
+                    
                     axios.post(`https://${url}/auth/jwt/login`, login_data, login_headers)
                     .then(res => {
-                        console.log(res)
+                        // console.log(res)
                         console.log("Вошел")    
-                                
-
-                        const reg_avito_data = {
-                            profile_id: 159470220,
-                            client_id: 'Pm4BmvaY4LPFHQ6Oo_Hu',
-                            client_secret: 'qBO1H1ssvcfotR15Nw1Qpxrs_1yG9vyhWb9tbgj5',
-                            name: 'first',
-
-                        }
-
-                        const reg_avito_headers = {
-                            headers: {
-                                'accept': 'application/json',
-                                'Authorization': `Bearer ${res.data.access_token}`,
-                                'Content-Type': 'application/json',
+                        // console.log("d: ", res.data.access_token)
+                        
+                        navigation("/chats", {
+                            state: {
+                                token: res.data.access_token,
+                                email: email ,
                             }
-                        }
-
-                        // axios.post(`https://${url}/avito_accounts/register_account`, reg_avito_data, reg_avito_headers)
-                        // .then(res => {
-                        //     console.log("reg avito", res)
-                        // })
-                        // .catch(err => {
-                        //     console.log("reg avito", err)
-                        // })
+                            }
+                        )
 
                         
-                        navigation("/chats", {state: {token: res.data.access_token }})
 
                     })
                     .catch(err => {

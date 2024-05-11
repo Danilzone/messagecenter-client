@@ -109,3 +109,7 @@ input {
     margin-top: 20px;
     color: #d6d536;
 }
+
+.pointer {
+    cursor: pointer;
+}

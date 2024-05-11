@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { NavLink, useNavigate } from "react-router-dom"
-import bcrypt from 'bcryptjs';
+
 import axios from "axios"
 import './signin.css'
 import './adapt.css'
@@ -54,26 +54,6 @@ export const Signin = () => {
             .then(res => {
 
                const token = res.data.access_token
-               
-                let socket = new WebSocket(`wss://${url}/avito_webhook/ws`)
-               socket.onopen = function(e) {
-                   socket.send(email);
-                   console.log("Отправка на сервер", e);
-               };
-               socket.onmessage = function(event) {
-                   console.log(`Data:: `, event.data);
-               };
-               socket.onclose = function(event) {
-                   if (event.wasClean) {
-                       console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-                   } else {
-                       console.log('[close] Connection died');
-                   }
-               };
-               socket.onerror = function(error) {
-                   console.log(`[error]`);
-               };
-
 
                 navigation("/chats",  {state: {token: token }})
             })

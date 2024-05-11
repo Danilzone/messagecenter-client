@@ -1,0 +1,101 @@
+import axios from 'axios';
+import React, { useState } from 'react';
+import { NavLink, useNavigate } from "react-router-dom"
+import { useLocation } from 'react-router-dom';
+import PacmanLoader from 'react-spinners/PacmanLoader';
+import RingLoader from 'react-spinners/RingLoader';
+
+import '../signin/signin.css' 
+import '../signin/adapt.css'
+
+
+export const NewAccAvito = () => {
+    const navigation = useNavigate(); // получаем history
+    let location = useLocation();
+    const token = location.state.token
+    const url = "messagecenter-9p86.onrender.com"
+    console.log(token)
+    const [idProfile, setIdProfile] = useState('');
+    const [idClient, setIdClient] = useState('');
+    const [secretKey, setSecretKey] = useState('');
+    const [accName, setAccName] = useState('');
+
+    const [loading, setLoading] = useState(false)
+    const [loadingTwo, setLoadingTwo] = useState(false)
+    
+    const inputIdProfile = (e) => {
+        setIdProfile(e.target.value);
+    };
+    const inputIdClient = (e) => {
+        setIdClient(e.target.value);
+    };
+    const inputSecretKey = (e) => {
+        setSecretKey(e.target.value);
+    };
+    const inputAccName = (e) => {
+        setAccName(e.target.value);
+    };
+    
+
+    const registration = () => {
+        console.log(idProfile, idClient, secretKey, accName)
+    }
+
+    return(
+        <div className="wrapper">
+
+            {loading && 
+                <div className='loading'>
+                    <PacmanLoader color="#d6d536" />
+                    <h2 className='loadtext'>Регестрируем тебя</h2>
+                </div>
+            }
+
+            {loadingTwo && 
+                <div className='loading'>
+                    <RingLoader color="#d6d536" />
+                    <h2 className='loadtext'>Подтверждаем тебя</h2>
+                </div>
+            }
+
+            <div className="form">
+
+                <h2>Привязка аккаунта Avito</h2>
+
+                <div className="idata">
+
+                    <input type="text"
+                            placeholder="ID Профиля"
+                            value={idProfile}
+                            onChange={inputIdProfile}
+                    />
+
+                    <input type="text"
+                            placeholder="ID Клиента"
+                            value={idClient}
+                            onChange={inputIdClient}
+                    />
+
+                    <input type="password"
+                            placeholder="Секретный ключ"
+                            value={secretKey}
+                            onChange={inputSecretKey}
+                    />
+
+                    <input type="text"
+                            placeholder="Название Аккаунта"
+                            value={accName}
+                            onChange={inputAccName}
+                    />
+
+                </div>
+                <div className='btn' onClick={registration} >Зарегистрировать</div>
+                <div className="textBtn pointer" onClick={() => {navigation("/chats",  {state: {token: token }})}}>Назад</div>
+            </div>
+
+        </div>
+
+
+    )
+
+}
