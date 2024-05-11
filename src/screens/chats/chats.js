@@ -22,7 +22,7 @@ export const Chats = () => {
     const email = location.state
     const navigation = useNavigate();
     
-    console.log(token)
+    // console.log(token)
     // console.log(email)
 
     const [openChat, setOpenChat] = useState(null)
@@ -38,10 +38,65 @@ export const Chats = () => {
         }
     }
 
-    const [accElements, setAccElements] = useState([]);
-
+    const [accElements, setAccElements] = useState([
+        {
+            acc_name: "Артём",
+            acc_profile_id: 1,
+            acc_client_id: 11,
+            acc_client_secret: "цмуыам",
+        },
+        {
+            acc_name: "юра",
+            acc_profile_id: 2,
+            acc_client_id: 22,
+            acc_client_secret: "цумм24",
+        },
+        {
+            acc_name: "Никита",
+            acc_profile_id: 3,
+            acc_client_id: 33,
+            acc_client_secret: "ывицуп",
+        }
+        
+    ]);
+    const [chat, setChat] = useState([           
+    {
+        id: "chat_6id",
+        title: "Арбуз",
+        last_message: "2332цывамц",
+        colro: "chat_colro", 
+        message_author_id: "last_message_author_id",
+        date: "n_data",
+        direction: "last_message_direction",
+        isRead: "last_message_isRead",
+        acc_name: "Николай"
+    },
+    {
+        id: "chat_i2d",
+        title: "Камера",
+        last_message: "цумицуки",
+        colro: "chat_colro", 
+        message_author_id: "last_message_author_id",
+        date: "n_data",
+        direction: "last_message_direction",
+        isRead: "last_message_isRead",
+        acc_name: "Антон"
+    },
+    {
+        id: "chat4_id",
+        title: "Судоку",
+        last_message: "тпкткеткет",
+        colro: "chat_colro", 
+        message_author_id: "last_message_author_id",
+        date: "n_data",
+        direction: "last_message_direction",
+        isRead: "last_message_isRead",
+        acc_name: "Дедус"
+    },
+])
 
     useEffect(() => {
+        renderChat()
         
         let socket = new WebSocket(`wss://${url}/avito_webhook/ws`)
         socket.onopen = function(e) {
@@ -127,11 +182,11 @@ export const Chats = () => {
         setSearchInput(e.target.value);
     }
 
-    const RenderFilteredChatList = chat_list.filter((item) => {
+    const RenderFilteredChatList = chat.filter((item) => {
         
         // console.log(item)
 
-        // return item.user_name.toLowerCase().includes(searchInput.toLowerCase()) || item.product.toLowerCase().includes(searchInput.toLowerCase());
+        return item.acc_name.toLowerCase().includes(searchInput.toLowerCase()) || item.title.toLowerCase().includes(searchInput.toLowerCase());
     });
 
 
@@ -170,7 +225,8 @@ export const Chats = () => {
         axios.get(`https://${url}/avito_chats/get_chats`, headers_auth)
         .then(res => {
           // console.log(res.data)
-          console.clear()
+          const full_chat_list = []
+        //   console.clear()
           const all_chat = res.data
         
           for(const chat in all_chat) {
@@ -200,17 +256,27 @@ export const Chats = () => {
                   const last_message_created = chat_last_message.created
                   const last_message_direction = chat_last_message.direction
                   const last_message_isRead = chat_last_message.isRead
-
-                  console.log(last_message_content, last_message_direction, last_message_isRead)
-
-
+                  const n_data = new Date(last_message_created);
+                  full_chat_list.push(
+                    {
+                        id: chat_id,
+                        title: chat_title,
+                        last_message: last_message_content,
+                        colro: chat_colro, 
+                        message_author_id: last_message_author_id,
+                        date: n_data,
+                        direction: last_message_direction,
+                        isRead: last_message_isRead,
+                        acc_name: account_name_chat_list
+                    } 
+                  )
                 }
               }
-
+              
             }
 
           }
-
+          setChat(full_chat_list);
         })
         .catch(err =>{
             console.log(err)
@@ -329,26 +395,23 @@ export const Chats = () => {
 
                         <div className="scrollbox-inner">
                             {
-                                // RenderFilteredChatList.map((item) => (
-                                //     <div key={item.id} className="ChatBlock" onClick={() => {
-                                //         console.log(item.color)
-                                //            openChatHandler(item.id,item.user_name, item.product)
-                                //         }}>
-                                //         <Chat 
-                                //             id={item.id}
-                                //             color={item.color}
-                                //             userName={item.user_name}
-                                //             product={item.product}
-                                //             lastMessage={item.last_message}
-                                //             checkedInfo={item.checked}
-                                //             dateText={item.date}
-                                //             amountMessage={item.amount_message}
-                                //             settingAcc={settingAcc}
-                                //         />
-                                //     </div>
-                                // ))
-                            
-                                renderChat()
+
+                                RenderFilteredChatList.map(item_chat => 
+                                   (
+                                    <div key={item_chat.id} className="ChatBlock" >
+                                        <Chat 
+                                            id={item_chat.id}
+                                            color={item_chat.color}
+                                            userName={item_chat.acc_name}
+                                            product={item_chat.title}
+                                            lastMessage={item_chat.last_message}
+                                            checkedInfo={item_chat.isRead}
+                                            dateText={item_chat.date}
+                                            amountMessage="0"
+                                            settingAcc={settingAcc}
+                                        />
+                                    </div>
+                                ))
                             }
                         </div>
 

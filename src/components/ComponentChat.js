@@ -19,7 +19,7 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
             </div>
 
             <div className="ProductName">
-                "{product}"
+                «{product}»
             </div>
 
             <div className="LastMessage">
