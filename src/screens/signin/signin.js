@@ -55,7 +55,7 @@ export const Signin = () => {
 
                const token = res.data.access_token
 
-                navigation("/chats",  {state: {token: token }})
+                navigation("/chats",  {state: {token: token, email: email }})
             })
             .catch(err => {
                 console.log(err.response.status)

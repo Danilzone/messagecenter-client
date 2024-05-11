@@ -19,16 +19,13 @@ export const Chats = () => {
     
     let location = useLocation();
     const token = location.state.token
-    const email = location.state
+    const email = location.state.email
     const navigation = useNavigate();
     
-    // console.log(token)
-    // console.log(email)
-
     const [openChat, setOpenChat] = useState(null)
 
     const openChatHandler = (id, userName, product) => {
-        setOpenChat({ id, userName, product });
+        setOpenChat({ id: id, userName: userName , product: product });
     }
     const header_get_acc_avito = {
         headers: {
@@ -39,60 +36,172 @@ export const Chats = () => {
     }
 
     const [accElements, setAccElements] = useState([
-        {
-            acc_name: "Артём",
-            acc_profile_id: 1,
-            acc_client_id: 11,
-            acc_client_secret: "цмуыам",
-        },
-        {
-            acc_name: "юра",
-            acc_profile_id: 2,
-            acc_client_id: 22,
-            acc_client_secret: "цумм24",
-        },
-        {
-            acc_name: "Никита",
-            acc_profile_id: 3,
-            acc_client_id: 33,
-            acc_client_secret: "ывицуп",
-        }
+        // {
+        //     acc_name: "Артём",
+        //     acc_profile_id: 2341,
+        //     acc_client_id: 151,
+        //     acc_client_secret: "цмуыам",
+        // },
+        // {
+        //     acc_name: "юра",
+        //     acc_profile_id: 34126372,
+        //     acc_client_id: 2372,
+        //     acc_client_secret: "цумм24",
+        // },
+        // {
+        //     acc_name: "Никита",
+        //     acc_profile_id: 23463,
+        //     acc_client_id: 32143,
+        //     acc_client_secret: "ывицуп",
+        // },
+        // {
+        //     acc_name: "Никита",
+        //     acc_profile_id: 5743,
+        //     acc_client_id: 37453,
+        //     acc_client_secret: "ывицуп",
+        // },
+        // {
+        //     acc_name: "Никита",
+        //     acc_profile_id: 323,
+        //     acc_client_id: 35233,
+        //     acc_client_secret: "ывицуп",
+        // },
+        // {
+        //     acc_name: "Никита",
+        //     acc_profile_id: 3,
+        //     acc_client_id: 33,
+        //     acc_client_secret: "ывицуп",
+        // },
+        // {
+        //     acc_name: "Никита",
+        //     acc_profile_id: 3,
+        //     acc_client_id: 33,
+        //     acc_client_secret: "ывицуп",
+        // },
         
     ]);
     const [chat, setChat] = useState([           
-    {
-        id: "chat_6id",
-        title: "Арбуз",
-        last_message: "2332цывамц",
-        colro: "chat_colro", 
-        message_author_id: "last_message_author_id",
-        date: "n_data",
-        direction: "last_message_direction",
-        isRead: "last_message_isRead",
-        acc_name: "Николай"
-    },
-    {
-        id: "chat_i2d",
-        title: "Камера",
-        last_message: "цумицуки",
-        colro: "chat_colro", 
-        message_author_id: "last_message_author_id",
-        date: "n_data",
-        direction: "last_message_direction",
-        isRead: "last_message_isRead",
-        acc_name: "Антон"
-    },
-    {
-        id: "chat4_id",
-        title: "Судоку",
-        last_message: "тпкткеткет",
-        colro: "chat_colro", 
-        message_author_id: "last_message_author_id",
-        date: "n_data",
-        direction: "last_message_direction",
-        isRead: "last_message_isRead",
-        acc_name: "Дедус"
-    },
+    // {
+    //     id: "chat_62id",
+    //     title: "Арбуз",
+    //     last_message: "2332цывамц",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Николай"
+    // },
+    // {
+    //     id: "chat_ 56w2d",
+    //     title: "Камера",
+    //     last_message: "цумицуки",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Антон"
+    // },
+    // {
+    //     id: "charght4_id",
+    //     title: "Судоку",
+    //     last_message: "тпкткеткет",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Дедус"
+    // },
+    // {
+    //     id: "chat4_547id",
+    //     title: "Судоку",
+    //     last_message: "тпкткеткет",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Дедус"
+    // },
+    // {
+    //     id: "cha568t4_id",
+    //     title: "Судоку",
+    //     last_message: "тпкткеткет",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Дедус"
+    // },
+    // {
+    //     id: "chat4rth_id",
+    //     title: "Судоку",
+    //     last_message: "тпкткеткет",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Дедус"
+    // },
+    // {
+    //     id: "chat412v_id",
+    //     title: "Судоку",
+    //     last_message: "тпкткеткет",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Дедус"
+    // },
+    // {
+    //     id: "chat43574_id",
+    //     title: "Судоку",
+    //     last_message: "тпкткеткет",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Дедус"
+    // },
+    // {
+    //     id: "chat4115_id",
+    //     title: "Судоку",
+    //     last_message: "тпкткеткет",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Дедус"
+    // },
+    // {
+    //     id: "chat47_id",
+    //     title: "Судоку",
+    //     last_message: "тпкткеткет",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Дедус"
+    // },
+    // {
+    //     id: "chat64_id",
+    //     title: "Судоку",
+    //     last_message: "тпкткеткет",
+    //     colro: "chat_colro", 
+    //     message_author_id: "last_message_author_id",
+    //     date: "n_data",
+    //     direction: "last_message_direction",
+    //     isRead: "last_message_isRead",
+    //     acc_name: "Дедус"
+    // },
 ])
 
     useEffect(() => {
@@ -224,59 +333,59 @@ export const Chats = () => {
         console.log("saedv")
         axios.get(`https://${url}/avito_chats/get_chats`, headers_auth)
         .then(res => {
-          // console.log(res.data)
-          const full_chat_list = []
-        //   console.clear()
-          const all_chat = res.data
+          console.log(res.data)
+        //   const full_chat_list = []
+        // //   console.clear()
+        //   const all_chat = res.data
         
-          for(const chat in all_chat) {
-            const acc_chats = all_chat[chat]
+        //   for(const chat in all_chat) {
+        //     const acc_chats = all_chat[chat]
 
-            for(const chat in acc_chats ) {
-              const list_chat =  acc_chats[chat]
-              const account_name_chat_list = chat
+        //     for(const chat in acc_chats ) {
+        //       const list_chat =  acc_chats[chat]
+        //       const account_name_chat_list = chat
 
-              for(const con_chat in list_chat) {
-                const dif_chat =  list_chat[con_chat]
-                for(const dif_chat_info in dif_chat) {
-                  const chat_data = dif_chat[dif_chat_info]
+        //       for(const con_chat in list_chat) {
+        //         const dif_chat =  list_chat[con_chat]
+        //         for(const dif_chat_info in dif_chat) {
+        //           const chat_data = dif_chat[dif_chat_info]
                   
-                  // console.log(chat_data)
+        //           // console.log(chat_data)
 
-                  const chat_id = dif_chat_info
-                  const chat_title = chat_data.title
-                  const chat_last_message = chat_data.last_message
-                  const chat_colro = chat_data.color
-                  const chat_deleted = chat_data.deleted
+        //           const chat_id = dif_chat_info
+        //           const chat_title = chat_data.title
+        //           const chat_last_message = chat_data.last_message
+        //           const chat_colro = chat_data.color
+        //           const chat_deleted = chat_data.deleted
 
-                  // console.log(chat_last_message)
+        //           // console.log(chat_last_message)
 
-                  const last_message_author_id = chat_last_message.author_id
-                  const last_message_content = chat_last_message.content.text
-                  const last_message_created = chat_last_message.created
-                  const last_message_direction = chat_last_message.direction
-                  const last_message_isRead = chat_last_message.isRead
-                  const n_data = new Date(last_message_created);
-                  full_chat_list.push(
-                    {
-                        id: chat_id,
-                        title: chat_title,
-                        last_message: last_message_content,
-                        colro: chat_colro, 
-                        message_author_id: last_message_author_id,
-                        date: n_data,
-                        direction: last_message_direction,
-                        isRead: last_message_isRead,
-                        acc_name: account_name_chat_list
-                    } 
-                  )
-                }
-              }
+        //           const last_message_author_id = chat_last_message.author_id
+        //           const last_message_content = chat_last_message.content.text
+        //           const last_message_created = chat_last_message.created
+        //           const last_message_direction = chat_last_message.direction
+        //           const last_message_isRead = chat_last_message.isRead
+        //           const n_data = new Date(last_message_created);
+        //           full_chat_list.push(
+        //             {
+        //                 id: chat_id,
+        //                 title: chat_title,
+        //                 last_message: last_message_content,
+        //                 colro: chat_colro, 
+        //                 message_author_id: last_message_author_id,
+        //                 date: n_data,
+        //                 direction: last_message_direction,
+        //                 isRead: last_message_isRead,
+        //                 acc_name: account_name_chat_list
+        //             } 
+        //           )
+        //         }
+        //       }
               
-            }
+        //     }
 
-          }
-          setChat(full_chat_list);
+        //   }
+        //   setChat(full_chat_list);
         })
         .catch(err =>{
             console.log(err)
@@ -287,7 +396,14 @@ export const Chats = () => {
     }
 
 
-    
+    const getMessages = (id, userName, product) => {
+        setOpenChat({ 
+            id: id,
+            userName: userName,
+            product: product,
+        });
+    }
+
     // console.log(token)
     // axios.get(`https:${url}/avito_accounts/register_account`, {
     //     profile_id:159470220,
@@ -351,25 +467,24 @@ export const Chats = () => {
                             <div className="List">
 
                                 
-                            {accElements.map(acc =>
+                                {accElements.map(acc =>
 
-                            // console.log(acc)
-                            (
-                                <div key={acc.acc_profile_id} className="Account" data-index={acc.acc_profile_id} >
-                                    {acc.acc_name.slice(0, 2)}
-                                </div>
-                            ))}
+                                (
+                                    <div key={acc.acc_profile_id} className="Account" data-index={acc.acc_profile_id} >
+                                        {acc.acc_name.slice(0, 2)}
+                                    </div>
+                                ))}
 
                             </div>
-   
+
                         </div>
                     </div>
+
                 </div>
 
 
 
                 <div className="ChatsBlock">
-
 
                     <div className="SearchBlock">
 
@@ -392,13 +507,45 @@ export const Chats = () => {
 
 
                     <div className="scrollbox">
+                    <div className="TopColorMobilePanel">
+                        <div className="elipsMob" id="blue">  { settingAcc ? <LuPlus color="#fff" size={32} className="pointer" /> : ""} </div>
+                        <div className="elipsMob" id="yellow">{ settingAcc ? <LuPlus color="#fff" size={32} className="pointer" /> : ""} </div>
+                        <div className="elipsMob" id="gray">  { settingAcc ? <LuPlus color="#fff" size={32} className="pointer" /> : ""} </div>
+                        <div className="elipsMob" id="green"> { settingAcc ? <LuPlus color="#fff" size={32} className="pointer" /> : ""} </div>
+                        <div className="elipsMob" id="red">   { settingAcc ? <LuPlus color="#fff" size={32} className="pointer" /> : ""} </div>
 
+                    </div>
+                    <div className="BottomMobilePanel">
+                        <div className="AccOption" >
+                            <BiHome size={48} />
+                        </div>
+                                
+
+
+                         <div className="AccountsList">
+                             <div className="List">
+                                 
+                                 {accElements.map(acc =>
+                                 (
+                                     <div key={acc.acc_profile_id} className="Account" data-index={acc.acc_profile_id} >
+                                         {acc.acc_name.slice(0, 2)}
+                                     </div>
+                                 ))}
+                             </div>
+                         </div>
+                         
+                         <div className="AccOption" onClick={gotoNewAccAvito} >
+                            <LuPlus color="#000" size={48} />
+                        </div>
+                    </div>
                         <div className="scrollbox-inner">
                             {
 
                                 RenderFilteredChatList.map(item_chat => 
                                    (
-                                    <div key={item_chat.id} className="ChatBlock" >
+                                    <div key={item_chat.id} className="ChatBlock" onClick={() => {
+                                        getMessages(item_chat.id, item_chat.acc_name, item_chat.title)
+                                    }} >
                                         <Chat 
                                             id={item_chat.id}
                                             color={item_chat.color}
@@ -413,6 +560,7 @@ export const Chats = () => {
                                     </div>
                                 ))
                             }
+                            
                         </div>
 
                     </div>

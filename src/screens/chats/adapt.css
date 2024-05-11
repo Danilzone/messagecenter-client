@@ -60,6 +60,9 @@
 }
 
 @media screen and (max-width: 976px) {
+    .InputSearch {
+        font-size: 18px;
+    }
     .OtherInfo {
         padding-right: 30px;
     }
@@ -109,5 +112,65 @@
 }
 
 @media screen and (max-width: 790px) {
+
+     
+    /* ::-webkit-scrollbar-thumb {
+        border-radius: 20px;
+        background-color: #525151;
+      }  */
+      
+
+
+    .MainSideBar {
+        width: 100%;
+    }
+    .OptionsPanel {
+        display: none;
+    }
+    .ChatBlock:first-child {
+        margin-top: 60px;
+    }
+    .ChatBlock:last-child {
+        margin-bottom: 120px;
+    }
+    .BottomMobilePanel {
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+    }
+    .List {
+        flex-direction: row;
+    }
     
+    .TopColorMobilePanel {
+        display: flex;
+    }
+
+    .SearchBlock {
+        width: 95%;
+    }
+
+    .Account {
+        width: 52px;
+        height: 52px;
+        font-size: 20px; 
+        margin-left: 5px;
+        margin-right: 5px;
+    }
+    .Account:first-child {
+        margin-top: 0;
+    }
+    .AccOption {
+        width: 52px;
+        height: 52px;
+    }
+    .AccountsList {
+        justify-content: center;
+        align-items: center;
+        width: 50%;
+        flex-direction: row;
+    }
+    .AccountsList::-webkit-scrollbar {
+        height: 5px;
+    }
 }
