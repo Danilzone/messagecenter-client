@@ -5,7 +5,114 @@ import { LuPlus } from "react-icons/lu";
 import { GoPaperAirplane } from "react-icons/go";
 import { IoArrowBackOutline } from "react-icons/io5";
 
-export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,settingAcc}) => {
+export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,settingAcc, messages}) => {
+    const messagesAvito = {
+        "messages": [
+            {
+                "id": "121d62ce59699d38634a06bdeafad4de",
+                "author_id": 159470220,
+                "created": 1713213695,
+                "content": {
+                    "text": "Hello world"
+                },
+                "type": "text",
+                "direction": "out",
+                "isRead": true,
+                "read": 1713262434
+            },
+            {
+                "id": "1efa7ef1401b8684cc41400f6dab3f51",
+                "author_id": 31935588,
+                "created": 1711851669,
+                "content": {
+                    "text": "Здравствуйте! Вы закрылись?"
+                },
+                "type": "text",
+                "direction": "in",
+                "isRead": true,
+                "read": 1712169945
+            },
+            {
+                "id": "436ae55884b0e0abc0bddadd7f585265",
+                "author_id": 159470220,
+                "created": 1707896490,
+                "content": {
+                    "text": "Цена актуальна"
+                },
+                "type": "text",
+                "direction": "out",
+                "isRead": true,
+                "read": 1707897068
+            },
+            {
+                "id": "681b3068a4b7deec5e9d2181aadbc0b0",
+                "author_id": 159470220,
+                "created": 1707896484,
+                "content": {
+                    "text": "Все есть"
+                },
+                "type": "text",
+                "direction": "out",
+                "isRead": true,
+                "read": 1707897068
+            },
+            {
+                "id": "1d1b9028a81d2748174ddd342a5edaf4",
+                "author_id": 159470220,
+                "created": 1707896483,
+                "content": {
+                    "text": "Здравствуйте"
+                },
+                "type": "text",
+                "direction": "out",
+                "isRead": true,
+                "read": 1707897068
+            },
+            {
+                "id": "11a33bc6d72aa94a34fcc09ff6df7343",
+                "author_id": 31935588,
+                "created": 1707883507,
+                "content": {
+                    "text": "Здравствуйте! В наличии? Цена актуальна?"
+                },
+                "type": "text",
+                "direction": "in",
+                "isRead": true,
+                "read": 1707897025
+            }
+        ],
+        "meta": {
+            "has_more": false
+        }
+    }
+    const [listMessage, setListMessage] = useState([])
+
+    const renderMessage = () => {
+        const list = []
+        for(const message in messages) {
+            
+            const data_message = messages[message]
+
+            const date = new Date(data_message.created * 1000);
+            const hours = date.getHours();
+            const minutes = date.getMinutes();
+            const formattedTime = `${hours}:${minutes}`;
+
+            list.push({
+                put: data_message.direction,
+                text: data_message.content.text,
+                check: data_message.isRead,
+                time: formattedTime,
+            })
+            
+        }
+
+        setListMessage(list)
+
+    }
+    renderMessage()
+    // setListMessage(messages)
+
 
     const [messageText, setMessageText] = useState('')
 
@@ -69,12 +176,22 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
 
            <div className="Messages">
             
-                {/* <Message
-                   put="in"
-                   text="34gj3ogb we bnfo3reuvbuiwergb3984 fugedsjfdn2o3ldmq;l cnlsolvbneiarlbvierufgbi4b<biqk3jbr3BRKWTB,  K2FB BWRAVIOUERBVV,DSMV KED.BJN;SEFNLKSEHNFLSNCVLH  OERNGBM,V L,EWRKNGLK24OIGHO2IN3RF ,W Gn8Y98y98fy2*(Y(*RTY#(*Ytfvnlekwrvnlervn"
-                   check={false} 
-                   time="12:33"
-               />     */}
+                {
+                
+                    listMessage.map(message => {
+                        console.log(message)
+                        // return(
+                        //     <Message
+                        //        put={message.put}
+                        //        text={message.text}
+                        //        check={message.check}
+                        //        time={message.time}
+                        //    />     
+                        // )
+
+                    })
+                
+               }
 
 
 

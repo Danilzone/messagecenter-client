@@ -4,10 +4,11 @@ import { CiSearch } from "react-icons/ci";
 import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { MessageBlock } from "./ComponentsMessageBlock";
+import { useState } from "react";
 
 
 export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, amountMessage, settingAcc}) => {
-    
+
     return(
 
     <div className="Chat" >

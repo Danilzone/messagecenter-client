@@ -1,6 +1,21 @@
-@media screen and (max-width: 1266px) {
-    
+@media screen and (max-width: 1346px) {
+    .InputBlock {
+        width: 75%;
+    }
+    .Information {
+        width: 77%;
+    }
 }
+
+@media screen and (max-width: 1150px) {
+    .Information {
+        width: 70%;
+    }
+    .InputBlock {
+        width: 70%;
+    }
+}
+
 
 @media screen and (max-width: 1076px) {
     .Dots {
@@ -12,8 +27,26 @@
 }
 
 @media screen and (max-width: 972px) {
+    .Dots {
+        margin-left: 0;
+    }
     .Information {
-        margin-right: 15px;
+        width: 67%;
+    }
+}
+
+@media screen and (max-width: 841px) {
+
+    .Information {
+        width: 65%;
+    }
+}
+@media screen and (max-width: 972px) {
+    .Dots {
+        margin-left: 0;
+    }
+    .Information {
+        width: 67%;
     }
 }
 
@@ -56,7 +89,9 @@
 
 
 @media screen and (max-width: 790px) {
-
+    .Information {
+        width: 80%;
+    }
     .MainSideBar {
         width: 100%;
     }
@@ -113,5 +148,11 @@
     }
     .MessageBlock { 
         width: 100%;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .Information {
+        width: 70%;
     }
 }
