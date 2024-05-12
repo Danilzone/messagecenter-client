@@ -89,30 +89,31 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
 
     const renderMessage = () => {
         const list = []
-        for(const message in messages) {
+        for(const message in messagesAvito) {
             
-            const data_message = messages[message]
+            const data_message = messagesAvito[message]
 
             const date = new Date(data_message.created * 1000);
             const hours = date.getHours();
             const minutes = date.getMinutes();
             const formattedTime = `${hours}:${minutes}`;
 
-            list.push({
-                put: data_message.direction,
-                text: data_message.content.text,
-                check: data_message.isRead,
-                time: formattedTime,
-            })
-            
+            console.log(data_message)
+
+            // list.push({
+            //     put: data_message.direction,
+            //     text: data_message.content.text,
+            //     check: data_message.isRead,
+            //     time: formattedTime,
+            // })
+            // console.log(list)
         }
 
         setListMessage(list)
 
     }
-    renderMessage()
     // setListMessage(messages)
-
+    renderMessage()
 
     const [messageText, setMessageText] = useState('')
 
@@ -136,7 +137,7 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
 
     return(
 
-       <div className="MessageBlock">
+       <div className="MessageBlock" onClick={renderMessage()}>
                
                <div className="TopPanel">
                    <div className="Back">
@@ -178,19 +179,7 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
             
                 {
                 
-                    listMessage.map(message => {
-                        console.log(message)
-                        // return(
-                        //     <Message
-                        //        put={message.put}
-                        //        text={message.text}
-                        //        check={message.check}
-                        //        time={message.time}
-                        //    />     
-                        // )
-
-                    })
-                
+         
                }
 
 
