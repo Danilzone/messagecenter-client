@@ -5,10 +5,9 @@ import { IoCheckmarkDoneOutline } from "react-icons/io5";
 import { IoCheckmarkOutline } from "react-icons/io5";
 import { MessageBlock } from "./ComponentsMessageBlock";
 import { useState } from "react";
-
+import axios from "axios";
 
 export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, amountMessage, settingAcc}) => {
-
     return(
 
     <div className="Chat" >

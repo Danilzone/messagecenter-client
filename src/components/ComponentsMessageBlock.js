@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Message } from './ComponentMessage';
 import { FaPlus } from "react-icons/fa6";
 import { LuPlus } from "react-icons/lu";
@@ -6,114 +6,38 @@ import { GoPaperAirplane } from "react-icons/go";
 import { IoArrowBackOutline } from "react-icons/io5";
 
 export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,settingAcc, messages}) => {
-    const messagesAvito = {
-        "messages": [
-            {
-                "id": "121d62ce59699d38634a06bdeafad4de",
-                "author_id": 159470220,
-                "created": 1713213695,
-                "content": {
-                    "text": "Hello world"
-                },
-                "type": "text",
-                "direction": "out",
-                "isRead": true,
-                "read": 1713262434
-            },
-            {
-                "id": "1efa7ef1401b8684cc41400f6dab3f51",
-                "author_id": 31935588,
-                "created": 1711851669,
-                "content": {
-                    "text": "Здравствуйте! Вы закрылись?"
-                },
-                "type": "text",
-                "direction": "in",
-                "isRead": true,
-                "read": 1712169945
-            },
-            {
-                "id": "436ae55884b0e0abc0bddadd7f585265",
-                "author_id": 159470220,
-                "created": 1707896490,
-                "content": {
-                    "text": "Цена актуальна"
-                },
-                "type": "text",
-                "direction": "out",
-                "isRead": true,
-                "read": 1707897068
-            },
-            {
-                "id": "681b3068a4b7deec5e9d2181aadbc0b0",
-                "author_id": 159470220,
-                "created": 1707896484,
-                "content": {
-                    "text": "Все есть"
-                },
-                "type": "text",
-                "direction": "out",
-                "isRead": true,
-                "read": 1707897068
-            },
-            {
-                "id": "1d1b9028a81d2748174ddd342a5edaf4",
-                "author_id": 159470220,
-                "created": 1707896483,
-                "content": {
-                    "text": "Здравствуйте"
-                },
-                "type": "text",
-                "direction": "out",
-                "isRead": true,
-                "read": 1707897068
-            },
-            {
-                "id": "11a33bc6d72aa94a34fcc09ff6df7343",
-                "author_id": 31935588,
-                "created": 1707883507,
-                "content": {
-                    "text": "Здравствуйте! В наличии? Цена актуальна?"
-                },
-                "type": "text",
-                "direction": "in",
-                "isRead": true,
-                "read": 1707897025
-            }
-        ],
-        "meta": {
-            "has_more": false
-        }
-    }
+    
     const [listMessage, setListMessage] = useState([])
 
     const renderMessage = () => {
-        const list = []
-        for(const message in messagesAvito) {
-            
-            const data_message = messagesAvito[message]
-
-            const date = new Date(data_message.created * 1000);
-            const hours = date.getHours();
-            const minutes = date.getMinutes();
-            const formattedTime = `${hours}:${minutes}`;
-
-            console.log(data_message)
-
-            // list.push({
-            //     put: data_message.direction,
-            //     text: data_message.content.text,
-            //     check: data_message.isRead,
-            //     time: formattedTime,
-            // })
-            // console.log(list)
+        const list_mess = []
+        for(const i in messages) {
+            const dif_mess = messages[i]
+            for(const j in dif_mess) {
+                if (dif_mess[j].content && dif_mess[j].content.text) {
+                    if (!dif_mess[j].content.text.startsWith("[Системное сообщение]")) {
+                        const date = new Date(dif_mess[j].created * 1000); // Умножаем на 1000, так как timestamp обычно указывает на количество секунд, а не миллисекунд
+                        const hours = date.getHours();
+                        const minutes = date.getMinutes();
+                        const n_date = `${hours}:${minutes}`
+                        list_mess.push({
+                            id: dif_mess[j].id,
+                            put:  dif_mess[j].direction,
+                            text:  dif_mess[j].content.text,
+                            check:  dif_mess[j].isRead,
+                            time:  n_date
+                            
+                        })
+                        setListMessage(list_mess)
+                    } 
+                }   
+            }
         }
-
-        setListMessage(list)
-
     }
-    // setListMessage(messages)
-    renderMessage()
+
+    useEffect(() => {
+        renderMessage();
+    }, [messages]); 
 
     const [messageText, setMessageText] = useState('')
 
@@ -137,7 +61,7 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
 
     return(
 
-       <div className="MessageBlock" onClick={renderMessage()}>
+       <div className="MessageBlock">
                
                <div className="TopPanel">
                    <div className="Back">
@@ -176,13 +100,18 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
                </div>
 
            <div className="Messages">
-            
-                {
-                
-         
-               }
 
-
+                    {
+                        listMessage.map(itemdata => (
+                            <Message 
+                                key={itemdata.id}
+                                put={itemdata.put}
+                                text={itemdata.text}
+                                check={itemdata.check}
+                                time={itemdata.time}
+                            />
+                        ))
+                    }
 
            </div> 
 

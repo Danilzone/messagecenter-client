@@ -4,7 +4,6 @@ import { NavLink, useNavigate } from "react-router-dom"
 import { useLocation } from 'react-router-dom';
 import PacmanLoader from 'react-spinners/PacmanLoader';
 import RingLoader from 'react-spinners/RingLoader';
-
 import '../signin/signin.css' 
 import '../signin/adapt.css'
 
@@ -19,6 +18,14 @@ export const NewAccAvito = () => {
     const [idClient, setIdClient] = useState('');
     const [secretKey, setSecretKey] = useState('');
     const [accName, setAccName] = useState('');
+    const headers = {
+        headers: {
+            'accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    }
+
 
     const [loading, setLoading] = useState(false)
     const [loadingTwo, setLoadingTwo] = useState(false)
@@ -38,7 +45,24 @@ export const NewAccAvito = () => {
     
 
     const registration = () => {
-        console.log(idProfile, idClient, secretKey, accName)
+        setLoading(true)
+        axios.post(`https://${url}/avito_accounts/register_account`, {
+            profile_id: idProfile,
+            client_id: idClient,
+            client_secret: secretKey,
+            account_name: accName
+        }, headers)
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+            alert("Аккаунт успешно добавлен!")
+        })
+        .finally(() => {
+            setLoading(false)
+        })
+
     }
 
     return(
