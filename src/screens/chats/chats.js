@@ -16,7 +16,7 @@ import './chats.css'
 import './adapt.css'
 
 export const Chats = () => {
-    const url = "messagecenter-9p86.onrender.com"
+    const url = "185.41.160.212:8000"
     
     let location = useLocation();
     const token = location.state.token
@@ -42,13 +42,19 @@ export const Chats = () => {
     } ])
 
     const [searchInput, setSearchInput] = useState('');
-    
+    const header_get_acc_avito = {
+        headers: {
+            'accept': 'application/json',
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json',
+        }
+    }
 
 
     useEffect(() => {
         setLoading(true)
         renderChat()
-        let socket = new WebSocket(`wss://${url}/avito_webhook/ws`)
+        let socket = new WebSocket(`ws://${url}/avito_webhook/ws`)
         socket.onopen = function(e) {
             socket.send(email)
             console.log("Отправка на сервер", e);
@@ -71,7 +77,8 @@ export const Chats = () => {
             console.log(`[error]`);
         };
 
-        axios.get(`https://${url}/avito_accounts/get_accounts`, header_get_acc_avito)
+    
+        axios.get(`http://${url}/avito_accounts/get_accounts`, header_get_acc_avito)
             .then(res => {
                 const acc_data = res.data;
                 const newAccElements = [];
@@ -105,18 +112,12 @@ export const Chats = () => {
 
     const auth_token = `Bearer ${token}`
     
-    const header_get_acc_avito = {
-        headers: {
-            'accept': 'application/json',
-            'Authorization': `Bearer ${token}`,
-            'Content-Type': 'application/json',
-        }
-    }
 
     const headers_auth = {
         headers: {
             'accept': 'application/json',
             'Authorization': auth_token,
+            'Content-Type': 'application/json',
         }
     }
 
@@ -128,62 +129,10 @@ export const Chats = () => {
     const gotoNewAccAvito = () => {
         navigation("/newaccavito",  {state: {token: token }})
     } 
-
-
-    const RenderFilteredChatList = chat.filter((item) => {
-        return item.acc_name.toLowerCase().includes(searchInput.toLowerCase()) || item.title.toLowerCase().includes(searchInput.toLowerCase());
-    });
- 
-
-    const handleColorClick = (color, id, user_name) => {
-        console.log(`Id: ${color}`)
-        setLoading(true)
-        axios.post(`https://${url}/avito_chats/set_color?chat_id=${id}&color=${color}`, {chat_id: id, color: color}, headers_auth)
-        .then(res => {
-            console.log("Добавлен цвет")
-            setChat(prevChat => 
-                prevChat.map(chatItem =>
-                    chatItem.id === id ? {...chatItem, color: color} : chatItem
-                )
-            )
-        })
-        .catch(err => {
-            console.log(err)
-        })
-        .finally(() => {
-            setLoading(false)
-        })
-    }
     
-    const mobileClickBack = () => {
-        setOpenChat(null)
-    }
-
-
-    const openChatHandler = (id, userName, product) => {
-        
-        if(settingAcc) {
-            console.log("Выбран", userName)            
-        } else {
-            setLoading(true)    
-            axios.post(`https://${url}/avito_chats/get_chat?chat_id=${id}&account_name=${userName}`, {chat_id: id, account_name: userName}, headers_auth)
-            .then(res => {
-                console.log("msgs: ", res.data)                   
-                setOpenChat({ id: id, userName: userName , product: product, messages: res.data});
-            })
-            .catch(err => {
-                console.log("msgs: ", err)
-            })
-            .finally(() => {setLoading(false)})
-        }
-            
-    }
-    
-    
-
     const full_chat_list = []
     const renderChat = () => {
-        axios.get(`https://${url}/avito_chats/get_chats`, headers_auth)
+        axios.get(`http://${url}/avito_chats/get_chats`, headers_auth)
         .then(res => {
   
 
@@ -245,6 +194,59 @@ export const Chats = () => {
         })
     }
 
+    const RenderFilteredChatList = chat.filter((item) => {
+        return item.acc_name.toLowerCase().includes(searchInput.toLowerCase()) || item.title.toLowerCase().includes(searchInput.toLowerCase());
+    });
+ 
+
+    const handleColorClick = (color, id, user_name) => {
+        console.log(`Id: ${color}`)
+        setLoading(true)
+        axios.post(`http://${url}/avito_chats/set_color?chat_id=${id}&color=${color}`, {chat_id: id, color: color}, headers_auth)
+        .then(res => {
+            console.log("Добавлен цвет")
+            setChat(prevChat => 
+                prevChat.map(chatItem =>
+                    chatItem.id === id ? {...chatItem, color: color} : chatItem
+                )
+            )
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        .finally(() => {
+            setLoading(false)
+        })
+    }
+    
+    const mobileClickBack = () => {
+        setOpenChat(null)
+    }
+
+
+    const openChatHandler = (id, userName, product) => {
+        
+        if(settingAcc) {
+            console.log("Выбран", userName)            
+        } else {
+            setLoading(true)    
+            axios.post(`http://${url}/avito_chats/get_chat?chat_id=${id}&account_name=${userName}`, {chat_id: id, account_name: userName}, headers_auth)
+            .then(res => {
+                console.log("msgs: ", res.data)                   
+                setOpenChat({ id: id, userName: userName , product: product, messages: res.data});
+            })
+            .catch(err => {
+                console.log("msgs: ", err)
+            })
+            .finally(() => {setLoading(false)})
+        }
+            
+    }
+    
+    
+
+   
+
 
     const getMessages = (id, userName, product) => {
         setOpenChat({ 
@@ -265,6 +267,7 @@ export const Chats = () => {
         if(color == "default") {
             setChat([]);
             setChat(saveChat);
+            console.log(chat)
         } else {
             setChat([]);
             const filteredChats = saveChat.filter(chat => chat.color == color);
@@ -383,10 +386,11 @@ export const Chats = () => {
                             {
 
                             RenderFilteredChatList.map(item_chat => (
-                                <div key={item_chat.id} className="ChatBlock" onClick={() => {
+                                <div  className="ChatBlock" onClick={() => {
                                     openChatHandler(item_chat.id, item_chat.acc_name, item_chat.title);
                                 }} >
                                     <Chat 
+                                        key={item_chat.id}
                                         id={item_chat.id}
                                         color={item_chat.color}
                                         userName={item_chat.acc_name}

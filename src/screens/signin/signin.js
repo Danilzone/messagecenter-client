@@ -10,13 +10,9 @@ import PacmanLoader from 'react-spinners/PacmanLoader';
 
 
 
-const url = "messagecenter-9p86.onrender.com"
+const url = "185.41.160.212:8000"
 
 export const Signin = () => {
-
-     let zxc="string"
-     const saltRounds = 10;
-
     const navigation = useNavigate();
     const [password, setPassword] = useState('');
     const [email, setEmail] = useState('');
@@ -50,7 +46,7 @@ export const Signin = () => {
                 }
             }
 
-            axios.post(`https://${url}/auth/jwt/login`, post_data, post_headers)
+            axios.post(`http://${url}/auth/jwt/login`, post_data, post_headers)
             .then(res => {
 
                const token = res.data.access_token
