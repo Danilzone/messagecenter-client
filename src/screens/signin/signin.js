@@ -8,9 +8,7 @@ import './adapt.css'
 
 import PacmanLoader from 'react-spinners/PacmanLoader';
 
-
-const url = "messagecenter-9p86.onrender.com"
-// const url = "185.41.160.212:8000"
+const url = "185.41.160.212:8000"
 
 export const Signin = () => {
     const navigation = useNavigate();

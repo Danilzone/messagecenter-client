@@ -10,8 +10,8 @@ import '../signin/adapt.css'
 export const Signup = () => {
     const navigation = useNavigate(); // получаем history
 
-    const url = "messagecenter-9p86.onrender.com"
-    // const url = "185.41.160.212:8000"
+    const url = "185.41.160.212:8000"
+    
 
     const [password, setPassword] = useState('');
     const [passwordTwo, setPasswordTwo] = useState('');

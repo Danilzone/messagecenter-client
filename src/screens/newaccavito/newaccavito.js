@@ -12,7 +12,7 @@ export const NewAccAvito = () => {
     const navigation = useNavigate(); // получаем history
     let location = useLocation();
     const token = location.state.token
-    const url = "messagecenter-9p86.onrender.com"
+    const url = "185.41.160.212:8000"
     console.log(token)
     const [idProfile, setIdProfile] = useState('');
     const [idClient, setIdClient] = useState('');

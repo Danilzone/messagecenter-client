@@ -16,8 +16,7 @@ import './chats.css'
 import './adapt.css'
 
 export const Chats = () => {
-    const url = "messagecenter-9p86.onrender.com"
-    // const url = "185.41.160.212:8000"
+    const url = "185.41.160.212:8000"
     
     let location = useLocation();
     const token = location.state.token
@@ -45,7 +44,7 @@ export const Chats = () => {
     useEffect(() => {
         setLoading(true)
         renderChat()
-        let socket = new WebSocket(`wss://${url}/avito_webhook/ws`)
+        let socket = new WebSocket(`ws://${url}/avito_webhook/ws`)
         socket.onopen = function(e) {
             socket.send(email)
             console.log("Отправка на сервер", e);
@@ -90,7 +89,7 @@ export const Chats = () => {
                     }
                 );
                 }
-               
+
                 setAccElements(newAccElements);
             })
             .catch(err => {
