@@ -45,7 +45,7 @@ export const Chats = () => {
     useEffect(() => {
         setLoading(true)
         renderChat()
-        let socket = new WebSocket(`ws://${url}/avito_webhook/ws`)
+        let socket = new WebSocket(`wss://${url}/avito_webhook/ws`)
         socket.onopen = function(e) {
             socket.send(email)
             console.log("Отправка на сервер", e);
