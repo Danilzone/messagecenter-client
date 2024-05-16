@@ -10,7 +10,8 @@ import '../signin/adapt.css'
 export const Signup = () => {
     const navigation = useNavigate(); // получаем history
 
-    const url = "185.41.160.212:8000"
+    const url = "messagecenter-9p86.onrender.com"
+    // const url = "185.41.160.212:8000"
 
     const [password, setPassword] = useState('');
     const [passwordTwo, setPasswordTwo] = useState('');
@@ -50,7 +51,7 @@ export const Signup = () => {
                     }
                 }
 
-                axios.post(`http://${url}/auth/register`, post_data, post_headers)
+                axios.post(`https://${url}/auth/register`, post_data, post_headers)
                 .then(res => {
                     console.log("зарегали")
                     setLoadingTwo(true)
@@ -65,7 +66,7 @@ export const Signup = () => {
                         }
                     }
                     
-                    axios.post(`http://${url}/auth/jwt/login`, login_data, login_headers)
+                    axios.post(`https://${url}/auth/jwt/login`, login_data, login_headers)
                     .then(res => {
                         // console.log(res)
                         console.log("Вошел")    

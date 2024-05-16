@@ -16,7 +16,8 @@ import './chats.css'
 import './adapt.css'
 
 export const Chats = () => {
-    const url = "185.41.160.212:8000"
+    const url = "messagecenter-9p86.onrender.com"
+    // const url = "185.41.160.212:8000"
     
     let location = useLocation();
     const token = location.state.token
@@ -29,17 +30,7 @@ export const Chats = () => {
     const [saveChat, setSaveChat] = useState([])
     const [accElements, setAccElements] = useState([]);
     
-    const [chat, setChat] = useState([{
-        id: "chat_id",
-        title: "chat_title",
-        last_message: "last_message_content",
-        color: "red", 
-        message_author_id: "last_message_author_id",
-        // date: 12412414,
-        direction: "last_message_direction",
-        isRead: "last_message_isRead",
-        acc_name: "account_name_chat_list"
-    } ])
+    const [chat, setChat] = useState([])
 
     const [searchInput, setSearchInput] = useState('');
     const header_get_acc_avito = {
@@ -78,7 +69,7 @@ export const Chats = () => {
         };
 
     
-        axios.get(`http://${url}/avito_accounts/get_accounts`, header_get_acc_avito)
+        axios.get(`https://${url}/avito_accounts/get_accounts`, header_get_acc_avito)
             .then(res => {
                 const acc_data = res.data;
                 const newAccElements = [];
@@ -99,7 +90,7 @@ export const Chats = () => {
                     }
                 );
                 }
-
+               
                 setAccElements(newAccElements);
             })
             .catch(err => {
@@ -132,7 +123,7 @@ export const Chats = () => {
     
     const full_chat_list = []
     const renderChat = () => {
-        axios.get(`http://${url}/avito_chats/get_chats`, headers_auth)
+        axios.get(`https://${url}/avito_chats/get_chats`, headers_auth)
         .then(res => {
   
 
@@ -202,7 +193,7 @@ export const Chats = () => {
     const handleColorClick = (color, id, user_name) => {
         console.log(`Id: ${color}`)
         setLoading(true)
-        axios.post(`http://${url}/avito_chats/set_color?chat_id=${id}&color=${color}`, {chat_id: id, color: color}, headers_auth)
+        axios.post(`https://${url}/avito_chats/set_color?chat_id=${id}&color=${color}`, {chat_id: id, color: color}, headers_auth)
         .then(res => {
             console.log("Добавлен цвет")
             setChat(prevChat => 
@@ -230,9 +221,8 @@ export const Chats = () => {
             console.log("Выбран", userName)            
         } else {
             setLoading(true)    
-            axios.post(`http://${url}/avito_chats/get_chat?chat_id=${id}&account_name=${userName}`, {chat_id: id, account_name: userName}, headers_auth)
-            .then(res => {
-                console.log("msgs: ", res.data)                   
+            axios.post(`https://${url}/avito_chats/get_chat?chat_id=${id}&account_name=${userName}`, {chat_id: id, account_name: userName}, headers_auth)
+            .then(res => {                  
                 setOpenChat({ id: id, userName: userName , product: product, messages: res.data});
             })
             .catch(err => {
@@ -275,6 +265,10 @@ export const Chats = () => {
             setChat(filteredChats);
         }
     }
+
+    const filterChat = (id, name) => {
+        console.log("id: ", id , "\nname: ", name)
+    } 
     
     return(
         
@@ -316,7 +310,7 @@ export const Chats = () => {
                                 {accElements.map(acc =>
 
                                 (
-                                    <div key={acc.acc_profile_id} className="Account" data-index={acc.acc_profile_id} >
+                                    <div key={acc.acc_profile_id} className="Account" data-index={acc.acc_profile_id} onClick={() => filterChat(acc.acc_profile_id, acc.acc_name)}>
                                         {acc.acc_name.slice(0, 2)}
                                     </div>
                                 ))}
