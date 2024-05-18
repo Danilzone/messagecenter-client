@@ -4,11 +4,11 @@ import { FaPlus } from "react-icons/fa6";
 import { LuPlus } from "react-icons/lu";
 import { GoPaperAirplane } from "react-icons/go";
 import { IoArrowBackOutline } from "react-icons/io5";
+import axios from "axios";
 
-export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,settingAcc, messages}) => {
-    
+export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,settingAcc, messages, token, acc_avito_name}) => {
     const [listMessage, setListMessage] = useState([])
-
+    const url = "185.41.160.212:8000"
     const renderMessage = () => {
         const list_mess = []
         for(const i in messages) {
@@ -34,7 +34,13 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
             }
         }
     }
-
+    const headers_auth = {
+        headers: {
+            'accept': 'application/json',
+            'Authorization': token,
+            'Content-Type': 'application/json',
+        }
+    }
     useEffect(() => {
         renderMessage();
     }, [messages]); 
@@ -46,7 +52,27 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
     };
 
     const sendMessage = () => {
-        console.log(messageText)
+        // console.log(chatName)
+        // console.log(
+        //     `http://${url}/avito_chats/send_message?chat_id=${id}&account_name=${acc_avito_name}&message=${messageText}`
+        // )
+        axios.post(`http://${url}/avito_chats/send_message?chat_id=${id}&account_name=${acc_avito_name}&message=${messageText}`, {
+            chat_id: id,
+            account_name: acc_avito_name,
+            message: messageText
+        }, headers_auth
+        )
+        .then(res => {
+            console.log(res.data)
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        .finally(() => {
+            renderMessage()
+            setMessageText('')
+        })
+
     }
 
     const handleColorClick = (color, id, user_name, onClickColor) => {

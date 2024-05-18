@@ -13,7 +13,6 @@ export const NewAccAvito = () => {
     let location = useLocation();
     const token = location.state.token
     const url = "185.41.160.212:8000"
-    console.log(token)
     const [idProfile, setIdProfile] = useState('');
     const [idClient, setIdClient] = useState('');
     const [secretKey, setSecretKey] = useState('');
@@ -46,7 +45,7 @@ export const NewAccAvito = () => {
 
     const registration = () => {
         setLoading(true)
-        axios.post(`https://${url}/avito_accounts/register_account`, {
+        axios.post(`http://${url}/avito_accounts/register_account`, {
             profile_id: idProfile,
             client_id: idClient,
             client_secret: secretKey,

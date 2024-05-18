@@ -7,12 +7,12 @@ import { MessageBlock } from "./ComponentsMessageBlock";
 import { useState } from "react";
 import axios from "axios";
 
-export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, amountMessage, settingAcc}) => {
+export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, dateText, amountMessage, settingAcc, thisSetting}) => {
     return(
 
     <div className="Chat" >
         <div className="FolderChat">
-            <div className="circle __CircleChat" id={color}/>   
+            <div className="circle __CircleChat" id={color == null ? "white" : `${color}` }/>   
         </div>
         <div className="Information">
             <div className="ChatInfo">
@@ -50,7 +50,7 @@ export const Chat = ({id, color, userName, product, lastMessage, checkedInfo, da
                     amountMessage == 0 ? "" : <div className="ChatInfoCircle">
                                                     {amountMessage}
                                                 </div>
-                            : <div className="CircleSettingItem"/>
+                            : thisSetting ? <div className="CircleSettingItemTrue"><IoCheckmarkOutline className="__chekmaxright" size={14} color="#ffffff"/> </div> : <div className="CircleSettingItem"/>
                 }
           
         </div>

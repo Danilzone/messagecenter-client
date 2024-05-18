@@ -1,4 +1,4 @@
-@media screen and (max-width: 1346px) {
+/* @media screen and (max-width: 1346px) {
     .InputBlock {
         width: 75%;
     }
@@ -155,4 +155,10 @@
     .Information {
         width: 70%;
     }
+} */
+
+
+@media screen and (max-width: 1200px) {
+
+    
 }

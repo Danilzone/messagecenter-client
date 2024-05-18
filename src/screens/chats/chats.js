@@ -12,8 +12,12 @@ import { Chat } from "../../components/ComponentChat";
 import { LuPlus } from "react-icons/lu";
 import PacmanLoader from 'react-spinners/PacmanLoader';
 
+import { MdOutlineCancel } from "react-icons/md";
+import { IoTrashOutline } from "react-icons/io5";
+
 import './chats.css'
 import './adapt.css'
+import { LiaChessPawnSolid } from "react-icons/lia";
 
 export const Chats = () => {
     const url = "185.41.160.212:8000"
@@ -29,7 +33,34 @@ export const Chats = () => {
     const [saveChat, setSaveChat] = useState([])
     const [accElements, setAccElements] = useState([]);
     
-    const [chat, setChat] = useState([])
+    const [editChat, setEditChat] = useState([])
+    const [confirmColor, setConfirmColor] = useState(false)
+    const [confirmDelete, setConfirmDelete] = useState(false)
+
+    const [chat, setChat] = useState([  
+    // {
+    //     id: "u23r2",
+    //     title:"Название товара",
+    //     last_message: "Ласт сообщение",
+    //     color: "green", 
+    //     message_author_id: "1124124",
+    //     date: 1717812214,
+    //     direction: "out",
+    //     isRead: false,
+    //     chat_name: "Игорь Григорьев Игоревич"
+    // },
+    // {
+    //     id: "u23r23",
+    //     title:"Иванов Иван Иванович",
+    //     last_message: "Ласт сообщение, ну как бы вот так. Многа текстаааа",
+    //     color: "green", 
+    //     message_author_id: "12313113",
+    //     date: 1717812214,
+    //     direction: "in",
+    //     isRead: false,
+    //     chat_name: "HER"
+    // },
+ ])
 
     const [searchInput, setSearchInput] = useState('');
     const header_get_acc_avito = {
@@ -40,35 +71,40 @@ export const Chats = () => {
         }
     }
 
-
     useEffect(() => {
         setLoading(true)
         renderChat()
-        let socket = new WebSocket(`ws://${url}/avito_webhook/ws`)
-        socket.onopen = function(e) {
-            socket.send(email)
-            console.log("Отправка на сервер", e);
-        };
-        socket.onmessage = function(event) {
-         console.log(`Data:: `, event.data);
-         if(event.data[0] == "{"){
-             console.log(JSON.parse(event.data))
-         }
+        // let socket = new WebSocket(`ws://${url}/avito_webhook/ws`)
+        // socket.onopen = function(e) {
+        //     socket.send(email)
+        //     console.log("Отправка на сервер", e);
+        // };
+        // socket.onmessage = function(event) {
+        //  console.log(`Data:: `, event.data);
+        //  if(event.data[0] == "{"){
+        //     const data_chats_ws = JSON.parse(event.data)
 
-        };
-        socket.onclose = function(event) {
-            if (event.wasClean) {
-                console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-            } else {
-                console.log('[close] Connection died');
-            }
-        };
-        socket.onerror = function(error) {
-            console.log(`[error]`);
-        };
+        //     // console.log(data_chats_ws)
+        //     // const chat_id_ws = data_chats_ws?.payload?.value?.chat_id;
+        //     // const chat_text_ws = data_chats_ws?.payload?.value?.content?.text;
+        //     console.log(data_chats_ws)
+
+        //  }
+
+        // };
+        // socket.onclose = function(event) {
+        //     if (event.wasClean) {
+        //         console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+        //     } else {
+        //         console.log('[close] Connection died');
+        //     }
+        // };
+        // socket.onerror = function(error) {
+        //     console.log(`[error]`);
+        // };
 
     
-        axios.get(`https://${url}/avito_accounts/get_accounts`, header_get_acc_avito)
+        axios.get(`http://${url}/avito_accounts/get_accounts`, header_get_acc_avito)
             .then(res => {
                 const acc_data = res.data;
                 const newAccElements = [];
@@ -89,7 +125,12 @@ export const Chats = () => {
                     }
                 );
                 }
-
+                // newAccElements.push({
+                //     acc_name: "HER",
+                //     acc_profile_id: "1241242124124",
+                //     acc_client_id: "31r312r2",
+                //     acc_client_secreсt: "eqafg29ob3tr123t123t",
+                // })
                 setAccElements(newAccElements);
             })
             .catch(err => {
@@ -122,59 +163,61 @@ export const Chats = () => {
     
     const full_chat_list = []
     const renderChat = () => {
-        axios.get(`https://${url}/avito_chats/get_chats`, headers_auth)
+        axios.get(`http://${url}/avito_chats/get_chats`, headers_auth)
         .then(res => {
-  
 
-          const all_chat = res.data
-        
-        for(const chat in all_chat) {
-            const acc_chats = all_chat[chat]
-            
-            for(const chat in acc_chats ) {
-              const list_chat =  acc_chats[chat]
-              
-              const account_name_chat_list = chat
-
-            
-              for(const con_chat in list_chat) {
-                const dif_chat =  list_chat[con_chat]
-
+            const all_chat = res.data
+            // console.log(all_chat)
+            for(const chat in all_chat) {
+                const acc_chats = all_chat[chat]
+                
+                for(const chat in acc_chats ) {
+                const list_chat =  acc_chats[chat]
+                
+                const account_name_chat_list = chat
+                
+                for(const con_chat in list_chat) {
+                    const dif_chat =  list_chat[con_chat]
+                    
                     for(const dif_chat_info in dif_chat) {
+                        
                         const chat_data = dif_chat[dif_chat_info]
                         const chat_id = dif_chat_info
                         const chat_title = chat_data.title
                         const chat_last_message = chat_data.last_message
                         const chat_color = chat_data.color
                         const chat_deleted = chat_data.deleted
+                        
+                            const chat_user_name = chat_data.client_name
+                            const last_message_author_id = chat_last_message.author_id
+                            const last_message_content = chat_last_message.content.text
+                            const last_message_created = chat_last_message.created
+                            const last_message_direction = chat_last_message.direction
+                            const last_message_isRead = chat_last_message.isRead
+                           
+                            full_chat_list.push(
+                                {
+                                    id: chat_id,
+                                    title: chat_title,
+                                    last_message: last_message_content,
+                                    color: chat_color, 
+                                    message_author_id: last_message_author_id,
+                                    date: last_message_created,
+                                    direction: last_message_direction,
+                                    isRead: last_message_isRead,
+                                    chat_name: chat_user_name,
+                                    acc_avito_name: account_name_chat_list,
 
-                        const last_message_author_id = chat_last_message.author_id
-                        const last_message_content = chat_last_message.content.text
-                        const last_message_created = chat_last_message.created
-                        const last_message_direction = chat_last_message.direction
-                        const last_message_isRead = chat_last_message.isRead
-                        const n_data = new Date(last_message_created);
-
-                        full_chat_list.push(
-                            {
-                                id: chat_id,
-                                title: chat_title,
-                                last_message: last_message_content,
-                                color: chat_color, 
-                                message_author_id: last_message_author_id,
-                                date: n_data,
-                                direction: last_message_direction,
-                                isRead: last_message_isRead,
-                                acc_name: account_name_chat_list
-                            } 
-                        )
-                        setChat(full_chat_list);
-                        setSaveChat(full_chat_list)
+                                    thisSetting: false
+                                }
+                            )
+                        }
+                    }
+                    
                 }
-              }
-              
+                setChat(full_chat_list);
+                setSaveChat(full_chat_list)
             }
-        }
         })
         .catch(err =>{
             console.log(err)
@@ -185,14 +228,14 @@ export const Chats = () => {
     }
 
     const RenderFilteredChatList = chat.filter((item) => {
-        return item.acc_name.toLowerCase().includes(searchInput.toLowerCase()) || item.title.toLowerCase().includes(searchInput.toLowerCase());
+        return item.chat_name.toLowerCase().includes(searchInput.toLowerCase()) || item.title.toLowerCase().includes(searchInput.toLowerCase());
     });
  
 
     const handleColorClick = (color, id, user_name) => {
         console.log(`Id: ${color}`)
         setLoading(true)
-        axios.post(`https://${url}/avito_chats/set_color?chat_id=${id}&color=${color}`, {chat_id: id, color: color}, headers_auth)
+        axios.post(`http://${url}/avito_chats/set_color?chat_id=${id}&color=${color}`, {chat_id: id, color: color}, headers_auth)
         .then(res => {
             console.log("Добавлен цвет")
             setChat(prevChat => 
@@ -213,16 +256,28 @@ export const Chats = () => {
         setOpenChat(null)
     }
 
-
-    const openChatHandler = (id, userName, product) => {
-        
-        if(settingAcc) {
-            console.log("Выбран", userName)            
-        } else {
-            setLoading(true)    
-            axios.post(`https://${url}/avito_chats/get_chat?chat_id=${id}&account_name=${userName}`, {chat_id: id, account_name: userName}, headers_auth)
+  
+    const openChatHandler = (id, userName, product, acc_avito_name) => {
+        if (settingAcc) {
+            
+            setChat(prevChat =>
+                prevChat.map(chatItem =>
+                    chatItem.id === id ? {...chatItem, thisSetting: !chatItem.thisSetting } : chatItem
+                )
+            )
+            const tChat =  chat.find(item => item.id === id)
+            if (!tChat.thisSetting) {
+                setEditChat(prevState => [...prevState, tChat]);
+            } else {
+                setEditChat(prevState => prevState.filter(item => item.id !== id));
+            }
+   
+        } 
+        else {
+            setLoading(true)
+            axios.post(`http://${url}/avito_chats/get_chat?chat_id=${id}&account_name=${acc_avito_name}`, {chat_id: id, account_name: acc_avito_name}, headers_auth)
             .then(res => {                  
-                setOpenChat({ id: id, userName: userName , product: product, messages: res.data});
+                setOpenChat({ id: id, userName: userName , product: product, messages: res.data, acc_avito_name: acc_avito_name});
             })
             .catch(err => {
                 console.log("msgs: ", err)
@@ -231,19 +286,7 @@ export const Chats = () => {
         }
             
     }
-    
-    
 
-   
-
-
-    const getMessages = (id, userName, product) => {
-        setOpenChat({ 
-            id: id,
-            userName: userName,
-            product: product,
-        });
-    }
 
 
 
@@ -251,24 +294,45 @@ export const Chats = () => {
         setSettingAcc(!settingAcc)
     }
 
+    const [filterColorChat, setFilterColorChat ] = useState([])
+
+    const [colorFolder, setColorFolder] = useState('')
+
+
     const filterColor = (color) => {
-        console.log(chat)
-        if(color == "default") {
-            setChat([]);
-            setChat(saveChat);
+       if (settingAcc) {
+            setColorFolder(color)
+            colorChatsConfirm(true)
+       } else {
             console.log(chat)
-        } else {
-            setChat([]);
-            const filteredChats = saveChat.filter(chat => chat.color == color);
-            console.log(color, filteredChats);
-            setChat(filteredChats);
-        }
+            if(color == "default") {
+                setChat([]);
+                setChat(saveChat);
+                console.log(chat)
+            } else {
+                setChat([]);
+                const filteredChats = saveChat.filter(chat => chat.color == color);
+                console.log(color, filteredChats);
+                setChat(filteredChats);
+                setFilterColorChat(filteredChats)
+            }
+       }
     }
 
-    const filterChat = (id, name) => {
+    const filterChat = (id, name) => {        
         console.log("id: ", id , "\nname: ", name)
+        const filterChatsAcc = saveChat.filter(chat => chat.chat_name == name )
+        setChat(filterChatsAcc)
+        // console.log(filterColorChat)
     } 
     
+    const deletChatsConfirm = () => {
+        setConfirmDelete(true)
+    }
+    const colorChatsConfirm = () => {
+        setConfirmColor(true)
+    }
+
     return(
         
         <div className="wrapper">
@@ -280,6 +344,57 @@ export const Chats = () => {
                 </div>
 
             }
+
+            {confirmColor && 
+                <div className="ConfirmBlock">
+                    <div className="ConfirmMenu">
+                        <div className="ConfirmMenuTextBlock">
+                            Подтвердить выбор папки
+                        </div>
+                        <div className="ConfirmMenuBtns">
+
+                            <div className="ConfirmBtn __Ok" onClick={() => {
+                                 let list_chats_id = []
+                                 let post_chats_id = []
+                                 const chats_id = editChat.map(data => list_chats_id.push(data.id.toString()))
+                                 list_chats_id.map(i => post_chats_id.push(i))
+                                 setLoading(true)
+                                 axios.post(`http://${url}/avito_chats/set_colors?color=${colorFolder}`, {chats: post_chats_id},  headers_auth)
+                                 .then(res => {
+                                     renderChat()
+                                     // console.log(res.data)
+                                 })
+                                 .catch(err => {
+                                     console.log(err)
+                                 })
+                                 .finally(() => {
+                                    setLoading(false)
+                                    setConfirmColor(false)
+                                 })
+                            }}>Подтвердить</div>
+                            <div className="ConfirmBtn __Cancel" onClick={() => setConfirmColor(false)}>Отмена</div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
+            {confirmDelete && 
+                <div className="ConfirmBlock">
+                    <div className="ConfirmMenu">
+                        <div className="ConfirmMenuTextBlock">
+                            Подтвердить удаление 
+                        </div>
+                        <div className="ConfirmMenuBtns">
+
+                            <div className="ConfirmBtn __Ok">Подтвердить</div>
+                            <div className="ConfirmBtn __Cancel" onClick={() => setConfirmDelete(false)}>Отмена</div>
+
+                        </div>
+                    </div>
+                </div>
+            }
+
             <div className="MainSideBar">
                 <div className="OptionsPanel">
                     <div className="ColorFolders">
@@ -324,12 +439,26 @@ export const Chats = () => {
 
 
                 <div className="ChatsBlock">
+                    {
+                        settingAcc && (
+                            <div className="settingBlock">
+                                
+                                <div className="BtnCancel"> 
+                                    <div className="BtnSett" onClick={() => {setSettingAcc(false)}} > <MdOutlineCancel size={24} color="#000" /> </div>
+                                </div>
 
+                                <div className="BtnDelete"> 
+                                    <div className="BtnSett" onClick={deletChatsConfirm}> <IoTrashOutline size={24} color="#000" /> </div>
+                                </div>
+                            
+                            </div>
+                            ) 
+                    }
                     <div className="Search">
                                 <div className="InputBlock">
 
                                     <div className="IconSearch pointer" >
-                                        <CiSearch size={40} />
+                                        <CiSearch size={26} />
                                     </div>
 
                                     <input className="InputSearch" placeholder="Поиск ..." onChange={handleSearch}>
@@ -375,31 +504,42 @@ export const Chats = () => {
                             <LuPlus color="#000" size={48} />
                         </div>
                     </div>
+                
+                
+                
+                
+                
+                
                         <div className="scrollbox-inner">
                             {
 
                             RenderFilteredChatList.map(item_chat => (
                                 <div  className="ChatBlock" onClick={() => {
-                                    openChatHandler(item_chat.id, item_chat.acc_name, item_chat.title);
+                                    openChatHandler(item_chat.id, item_chat.chat_name, item_chat.title, item_chat.acc_avito_name);
                                 }} >
                                     <Chat 
                                         key={item_chat.id}
                                         id={item_chat.id}
                                         color={item_chat.color}
-                                        userName={item_chat.acc_name}
+                                        userName={item_chat.chat_name}
                                         product={item_chat.title}
                                         lastMessage={item_chat.last_message}
                                         checkedInfo={item_chat.isRead}
-                                        // dateText={item_chat.date.toLocaleTimeString()}
-                                        dateText="12:13:13"
+                                        dateText={item_chat.date}
+                                        // dateText="19.05.2024"
                                         amountMessage="0"
                                         settingAcc={settingAcc}
+                                        thisSetting={item_chat.thisSetting}
                                     />
                                 </div>
                             ))
                             
                             }
-                            
+                            {
+                                settingAcc && (
+                                    <div className="nullchat" />
+                                )
+                            }
                         </div>
 
                     </div>
@@ -422,9 +562,13 @@ export const Chats = () => {
                         onClickBack={mobileClickBack}
                         settingAcc={settingAcc}
                         messages={openChat.messages}
+                        token={auth_token}
+                        acc_avito_name={openChat.acc_avito_name}
                     />
                 )
             }
+
+   
 
         </div>
 

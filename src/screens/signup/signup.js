@@ -51,7 +51,7 @@ export const Signup = () => {
                     }
                 }
 
-                axios.post(`https://${url}/auth/register`, post_data, post_headers)
+                axios.post(`http://${url}/auth/register`, post_data, post_headers)
                 .then(res => {
                     console.log("зарегали")
                     setLoadingTwo(true)
@@ -66,7 +66,7 @@ export const Signup = () => {
                         }
                     }
                     
-                    axios.post(`https://${url}/auth/jwt/login`, login_data, login_headers)
+                    axios.post(`http://${url}/auth/jwt/login`, login_data, login_headers)
                     .then(res => {
                         // console.log(res)
                         console.log("Вошел")    

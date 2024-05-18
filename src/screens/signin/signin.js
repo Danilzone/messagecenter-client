@@ -44,7 +44,7 @@ export const Signin = () => {
                 }
             }
 
-            axios.post(`https://${url}/auth/jwt/login`, post_data, post_headers)
+            axios.post(`http://${url}/auth/jwt/login`, post_data, post_headers)
             .then(res => {
 
                const token = res.data.access_token
@@ -52,11 +52,7 @@ export const Signin = () => {
                 navigation("/chats",  {state: {token: token, email: email }})
             })
             .catch(err => {
-                console.log(err.response.status)
-                
-                if(err.response.status == 400) {
-                    alert("Вы ввели не коректные данные")
-                }
+                console.log(err)
             })
             .finally(() => {
                setLoading(false)
