@@ -6,8 +6,10 @@ import { GoPaperAirplane } from "react-icons/go";
 import { IoArrowBackOutline } from "react-icons/io5";
 import axios from "axios";
 
-export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,settingAcc, messages, token, acc_avito_name}) => {
+export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onClickBack,settingAcc, messages, token, acc_avito_name}) => {
+
     const [listMessage, setListMessage] = useState([])
+
     const url = "185.41.160.212:8000"
     const renderMessage = () => {
         const list_mess = []
@@ -26,7 +28,6 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
                             text:  dif_mess[j].content.text,
                             check:  dif_mess[j].isRead,
                             time:  n_date
-                            
                         })
                         setListMessage(list_mess)
                     } 
@@ -43,6 +44,32 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
     }
     useEffect(() => {
         renderMessage();
+        
+
+        let socket = new WebSocket(`ws://${url}/avito_webhook/chats`)
+        socket.onopen = function(e) {
+            socket.send(chatId);
+        };
+        socket.onmessage = function(event) {
+            if(event.data[0] == "{"){
+                const data_chats_ws = JSON.parse(event.data);
+                console.log("/chats", data_chats_ws)
+            }
+        }
+        
+        socket.onclose = function(event) {
+            if (event.wasClean) {
+                console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            } else {
+                console.log('[close] Connection died');
+            }
+        };
+        socket.onerror = function(error) {
+            console.log(`[error]`);
+        };
+
+
+
     }, [messages]); 
 
     const [messageText, setMessageText] = useState('')
@@ -69,7 +96,6 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
             console.log(err)
         })
         .finally(() => {
-            renderMessage()
             setMessageText('')
         })
 
@@ -84,6 +110,19 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
         // и передаем цвет и id
         onClickBack(null);
     }
+
+    const handleKeyPress = (event) => {
+        const textareaHeight = event.target.scrollHeight;
+        console.log(textareaHeight)
+        if (event.key === 'Enter' && !event.shiftKey) {
+          event.preventDefault()
+          sendMessage()
+        } else if (event.key === 'Enter' && event.shiftKey) {
+          setMessageText((prevMessage) => prevMessage + '\n')
+        }
+    }
+    
+
 
     return(
 
@@ -138,7 +177,6 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
                             />
                         ))
                     }
-
            </div> 
 
            <div className="InputMessageBlock">
@@ -147,6 +185,7 @@ export const MessageBlock = ({id, chatName, product, onClickColor, onClickBack,s
                <textarea className="InputMessage" placeholder="Сообщение"
                        value={messageText}
                        onChange={inputMessage}
+                       onKeyPress={handleKeyPress}
                />
                <GoPaperAirplane className="IconSend pointer __pr" 
                    size={32}

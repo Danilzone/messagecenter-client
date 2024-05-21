@@ -63,6 +63,7 @@ export const Chats = () => {
  ])
 
     const [searchInput, setSearchInput] = useState('');
+    const [ws_test, setWs_test] = useState([])
     const header_get_acc_avito = {
         headers: {
             'accept': 'application/json',
@@ -74,34 +75,45 @@ export const Chats = () => {
     useEffect(() => {
         setLoading(true)
         renderChat()
-        // let socket = new WebSocket(`ws://${url}/avito_webhook/ws`)
-        // socket.onopen = function(e) {
-        //     socket.send(email)
-        //     console.log("Отправка на сервер", e);
-        // };
-        // socket.onmessage = function(event) {
-        //  console.log(`Data:: `, event.data);
-        //  if(event.data[0] == "{"){
-        //     const data_chats_ws = JSON.parse(event.data)
 
-        //     // console.log(data_chats_ws)
-        //     // const chat_id_ws = data_chats_ws?.payload?.value?.chat_id;
-        //     // const chat_text_ws = data_chats_ws?.payload?.value?.content?.text;
-        //     console.log(data_chats_ws)
 
-        //  }
 
-        // };
-        // socket.onclose = function(event) {
-        //     if (event.wasClean) {
-        //         console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-        //     } else {
-        //         console.log('[close] Connection died');
-        //     }
-        // };
-        // socket.onerror = function(error) {
-        //     console.log(`[error]`);
-        // };
+        let socket = new WebSocket(`ws://${url}/avito_webhook/ws`)
+        socket.onopen = function(e) {
+            socket.send(email)
+            console.log("Отправка на сервер", e);
+        };
+        socket.onmessage = function(event) {
+            // console.log(`Data:: `, event.data);
+            if(event.data[0] == "{"){
+                const data_chats_ws = JSON.parse(event.data);
+                console.log("/ws", data_chats_ws)
+                // if(data_chats_ws && data_chats_ws.payload && data_chats_ws.payload.value) {
+                //     const ws_chat_id = data_chats_ws.payload.value.chat_id;
+                //     const ws_message = data_chats_ws.payload.value.content.text;
+        
+                //     console.log(ws_chat_id, ws_message);
+                //     setChat(prevChat => 
+                //         prevChat.map(chatItem =>
+                //             chatItem.id === ws_chat_id ? {...chatItem, last_message: ws_message} : chatItem
+                //         )
+                //     )
+                //     setWs_test(newObj => [...newObj, data_chats_ws])
+                //     console.log(data_chats_ws.payload)
+                // }
+            }
+        }
+        
+        socket.onclose = function(event) {
+            if (event.wasClean) {
+                console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+            } else {
+                console.log('[close] Connection died');
+            }
+        };
+        socket.onerror = function(error) {
+            console.log(`[error]`);
+        };
 
     
         axios.get(`http://${url}/avito_accounts/get_accounts`, header_get_acc_avito)
@@ -142,7 +154,7 @@ export const Chats = () => {
     }, []); 
 
     const auth_token = `Bearer ${token}`
-    
+  
 
     const headers_auth = {
         headers: {
@@ -163,11 +175,11 @@ export const Chats = () => {
     
     const full_chat_list = []
     const renderChat = () => {
+        setLoading(true)
         axios.get(`http://${url}/avito_chats/get_chats`, headers_auth)
         .then(res => {
-
+            console.log(res.data)
             const all_chat = res.data
-            // console.log(all_chat)
             for(const chat in all_chat) {
                 const acc_chats = all_chat[chat]
                 
@@ -223,6 +235,7 @@ export const Chats = () => {
             console.log(err)
         })
         .finally(() => {
+            setLoading(false)
             console.log("Запрос получение чатов выполнился")
         })
     }
@@ -233,16 +246,12 @@ export const Chats = () => {
  
 
     const handleColorClick = (color, id, user_name) => {
-        console.log(`Id: ${color}`)
+
         setLoading(true)
-        axios.post(`http://${url}/avito_chats/set_color?chat_id=${id}&color=${color}`, {chat_id: id, color: color}, headers_auth)
+        axios.post(`http://${url}/avito_chats/set_colors?color=${color}`, {chats: [id]}, headers_auth)
         .then(res => {
             console.log("Добавлен цвет")
-            setChat(prevChat => 
-                prevChat.map(chatItem =>
-                    chatItem.id === id ? {...chatItem, color: color} : chatItem
-                )
-            )
+            renderChat()
         })
         .catch(err => {
             console.log(err)
@@ -277,7 +286,7 @@ export const Chats = () => {
             setLoading(true)
             axios.post(`http://${url}/avito_chats/get_chat?chat_id=${id}&account_name=${acc_avito_name}`, {chat_id: id, account_name: acc_avito_name}, headers_auth)
             .then(res => {                  
-                setOpenChat({ id: id, userName: userName , product: product, messages: res.data, acc_avito_name: acc_avito_name});
+                setOpenChat({ id: id, chatId: id, userName: userName , product: product, messages: res.data, acc_avito_name: acc_avito_name});
             })
             .catch(err => {
                 console.log("msgs: ", err)
@@ -308,7 +317,6 @@ export const Chats = () => {
             if(color == "default") {
                 setChat([]);
                 setChat(saveChat);
-                console.log(chat)
             } else {
                 setChat([]);
                 const filteredChats = saveChat.filter(chat => chat.color == color);
@@ -320,9 +328,70 @@ export const Chats = () => {
     }
 
     const filterChat = (id, name) => {        
-        console.log("id: ", id , "\nname: ", name)
-        const filterChatsAcc = saveChat.filter(chat => chat.chat_name == name )
-        setChat(filterChatsAcc)
+        setLoading(true)
+        axios.post(`http://${url}/avito_chats/filters/accounts?account=${name}`, {accounts: name} ,headers_auth)
+        .then(res => {
+            // console.log(res.data)
+            const all_chat = res.data
+            for(const chat in all_chat) {
+                const acc_chats = all_chat[chat]
+                
+                for(const chat in acc_chats ) {
+                const list_chat =  acc_chats[chat]
+                
+                const account_name_chat_list = chat
+                
+                for(const con_chat in list_chat) {
+                    const dif_chat =  list_chat[con_chat]
+                    
+                    for(const dif_chat_info in dif_chat) {
+                        
+                        const chat_data = dif_chat[dif_chat_info]
+                        const chat_id = dif_chat_info
+                        const chat_title = chat_data.title
+                        const chat_last_message = chat_data.last_message
+                        const chat_color = chat_data.color
+                        const chat_deleted = chat_data.deleted
+                        
+                            const chat_user_name = chat_data.client_name
+                            const last_message_author_id = chat_last_message.author_id
+                            const last_message_content = chat_last_message.content.text
+                            const last_message_created = chat_last_message.created
+                            const last_message_direction = chat_last_message.direction
+                            const last_message_isRead = chat_last_message.isRead
+                           
+                            full_chat_list.push(
+                                {
+                                    id: chat_id,
+                                    title: chat_title,
+                                    last_message: last_message_content,
+                                    color: chat_color, 
+                                    message_author_id: last_message_author_id,
+                                    date: last_message_created,
+                                    direction: last_message_direction,
+                                    isRead: last_message_isRead,
+                                    chat_name: chat_user_name,
+                                    acc_avito_name: account_name_chat_list,
+
+                                    thisSetting: false
+                                }
+                            )
+                        }
+                    }
+                    
+                }
+                setChat(full_chat_list);
+                setSaveChat(full_chat_list)
+            }
+        })
+        .catch(err => {
+            console.log(err)
+        })
+        .finally(() => {
+            setLoading(false)
+        })
+        // const filterChatsAcc = saveChat.filter(chat => chat.chat_name == name )
+        // setChat(filterChatsAcc)
         // console.log(filterColorChat)
     } 
     
@@ -387,7 +456,9 @@ export const Chats = () => {
                         </div>
                         <div className="ConfirmMenuBtns">
 
-                            <div className="ConfirmBtn __Ok">Подтвердить</div>
+                            <div className="ConfirmBtn __Ok" onClick={() => {
+                                console.log("Удаление")
+                            }}>Подтвердить</div>
                             <div className="ConfirmBtn __Cancel" onClick={() => setConfirmDelete(false)}>Отмена</div>
 
                         </div>
@@ -556,6 +627,7 @@ export const Chats = () => {
 
                     <MessageBlock 
                         id={openChat.id} 
+                        chatId={openChat.chatId}
                         chatName={openChat.userName} 
                         product={openChat.product} 
                         onClickColor={handleColorClick} 
