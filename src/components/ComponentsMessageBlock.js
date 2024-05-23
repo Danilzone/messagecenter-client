@@ -136,11 +136,14 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
           setMessageText((prevMessage) => prevMessage + '\n')
         }
     }
-    
-    // console.log("##>", test.payload.value.content.text)
-    if ( test.payload.value.chat_id == chatId) {
-        console.log("В этот чат пришло сообщение ", test.payload.value.content.text)
+    if(test) {
+
+        // console.log(test.payload)
+        if ( test.payload.value.chat_id == chatId) {
+            console.log("В этот чат пришло сообщение ", test.payload.value.content.text)
+        }
     }
+    // // console.log("##>", test.payload.value.content.text)
     return(
 
        <div className="MessageBlock">
