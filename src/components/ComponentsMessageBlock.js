@@ -83,9 +83,15 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
         // socket.onerror = function(error) {
         //     console.log(`[error]`, error);
         // };
+        if(test) {
 
+            // console.log(test.payload)
+            if ( test.payload.value.chat_id == chatId) {
+                console.log("В этот чат пришло сообщение ", test.payload.value.content.text)
+            }
+        }
     
-    }, [messages]);
+    }, [messages, test]);
 
     const [messageText, setMessageText] = useState('')
 
@@ -136,13 +142,7 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
           setMessageText((prevMessage) => prevMessage + '\n')
         }
     }
-    if(test) {
 
-        // console.log(test.payload)
-        if ( test.payload.value.chat_id == chatId) {
-            console.log("В этот чат пришло сообщение ", test.payload.value.content.text)
-        }
-    }
     // // console.log("##>", test.payload.value.content.text)
     return(
 
