@@ -6,7 +6,7 @@ import { GoPaperAirplane } from "react-icons/go";
 import { IoArrowBackOutline } from "react-icons/io5";
 import axios from "axios";
 
-export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onClickBack,settingAcc, messages, token, acc_avito_name}) => {
+export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onClickBack,settingAcc, messages, token, acc_avito_name, test}) => {
 
     const [listMessage, setListMessage] = useState([])
 
@@ -42,35 +42,50 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
             'Content-Type': 'application/json',
         }
     }
-    useEffect(() => {
-        renderMessage();
+
+    const [ws, setWs] = useState()
+    const [wsMessages, setWsMessage] = useState([])
+
+    useEffect(() => {   
+        renderMessage()
+
+        // if(ws) {
+        //     console.log("Расторжение с", ws)
+        //     ws.close()
+        // }
+
+        // let socket = new WebSocket(`ws://${url}/avito_webhook/chats`)
+        // console.log("//")
+        // setWs(socket)
+        // socket.onopen = function(e) {
+        //     socket.send(chatId);
+        // };
+        // socket.onmessage = function(event) {
+        //     if(event.data[0] == "{"){
+        //         const data_chats_ws = JSON.parse(event.data);
+        //         console.log("/chats", data_chats_ws)
+        //         // if(data_chats_ws && data_chats_ws.payload && data_chats_ws.payload.value) {
+        //             // const ws_chat_id = data_chats_ws.payload.value.chat_id;
+        //             // const ws_message = data_chats_ws.payload.value.content.text
         
+        //             // console.log("/chats", ws_chat_id, ws_message)
 
-        let socket = new WebSocket(`ws://${url}/avito_webhook/chats`)
-        socket.onopen = function(e) {
-            socket.send(chatId);
-        };
-        socket.onmessage = function(event) {
-            if(event.data[0] == "{"){
-                const data_chats_ws = JSON.parse(event.data);
-                console.log("/chats", data_chats_ws)
-            }
-        }
-        
-        socket.onclose = function(event) {
-            if (event.wasClean) {
-                console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-            } else {
-                console.log('[close] Connection died');
-            }
-        };
-        socket.onerror = function(error) {
-            console.log(`[error]`);
-        };
+        //         // }
+        //     }
+        // }
+        // socket.onclose = function(event) {
+        //     if (event.wasClean) {
+        //         console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
+        //     } else {
+        //         console.log('[close] Connection died');
+        //     }
+        // };
+        // socket.onerror = function(error) {
+        //     console.log(`[error]`, error);
+        // };
 
-
-
-    }, [messages]); 
+    
+    }, [messages]);
 
     const [messageText, setMessageText] = useState('')
 
@@ -122,8 +137,10 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
         }
     }
     
-
-
+    // console.log("##>", test.payload.value.content.text)
+    if ( test.payload.value.chat_id == chatId) {
+        console.log("В этот чат пришло сообщение ", test.payload.value.content.text)
+    }
     return(
 
        <div className="MessageBlock">

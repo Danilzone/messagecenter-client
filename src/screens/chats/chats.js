@@ -63,7 +63,7 @@ export const Chats = () => {
  ])
 
     const [searchInput, setSearchInput] = useState('');
-    const [ws_test, setWs_test] = useState([])
+
     const header_get_acc_avito = {
         headers: {
             'accept': 'application/json',
@@ -87,20 +87,19 @@ export const Chats = () => {
             // console.log(`Data:: `, event.data);
             if(event.data[0] == "{"){
                 const data_chats_ws = JSON.parse(event.data);
-                console.log("/ws", data_chats_ws)
-                // if(data_chats_ws && data_chats_ws.payload && data_chats_ws.payload.value) {
-                //     const ws_chat_id = data_chats_ws.payload.value.chat_id;
-                //     const ws_message = data_chats_ws.payload.value.content.text;
+                setWsTest(data_chats_ws)
+                if(data_chats_ws && data_chats_ws.payload && data_chats_ws.payload.value) {
+                    const ws_chat_id = data_chats_ws.payload.value.chat_id;
+                    const ws_message = data_chats_ws.payload.value.content.text;
         
-                //     console.log(ws_chat_id, ws_message);
-                //     setChat(prevChat => 
-                //         prevChat.map(chatItem =>
-                //             chatItem.id === ws_chat_id ? {...chatItem, last_message: ws_message} : chatItem
-                //         )
-                //     )
-                //     setWs_test(newObj => [...newObj, data_chats_ws])
-                //     console.log(data_chats_ws.payload)
-                // }
+                    // console.log(ws_chat_id, ws_message);
+                    setChat(prevChat => 
+                        prevChat.map(chatItem =>
+                            chatItem.id === ws_chat_id ? {...chatItem, last_message: ws_message} : chatItem
+                        )
+                    )
+                    // console.log(data_chats_ws.payload)
+                }
             }
         }
         
@@ -173,6 +172,8 @@ export const Chats = () => {
         navigation("/newaccavito",  {state: {token: token }})
     } 
     
+    const [wsTest, setWsTest] = useState()
+
     const full_chat_list = []
     const renderChat = () => {
         setLoading(true)
@@ -636,6 +637,8 @@ export const Chats = () => {
                         messages={openChat.messages}
                         token={auth_token}
                         acc_avito_name={openChat.acc_avito_name}
+                        test={wsTest}
+                        
                     />
                 )
             }
