@@ -9,6 +9,7 @@ import axios from "axios";
 export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onClickBack,settingAcc, messages, token, acc_avito_name, test}) => {
 
     const [listMessage, setListMessage] = useState([])
+    const [wsMessages, setWsMessage] = useState([])
 
     const url = "185.41.160.212:8000"
     const renderMessage = () => {
@@ -43,12 +44,10 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
         }
     }
 
-    const [ws, setWs] = useState()
-    const [wsMessages, setWsMessage] = useState([])
 
     useEffect(() => {   
         renderMessage()
-
+        // setWsMessage([])
         // if(ws) {
         //     console.log("Расторжение с", ws)
         //     ws.close()
@@ -83,11 +82,28 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
         // socket.onerror = function(error) {
         //     console.log(`[error]`, error);
         // };
+        if(!test) {
+            console.log("нету тест")
+        }
         if(test) {
-
-            // console.log(test.payload)
             if ( test.payload.value.chat_id == chatId) {
-                console.log("В этот чат пришло сообщение ", test.payload.value.content.text)
+                const data_ws_mess = test.payload.value
+                // console.log(test)
+                // console.log("В этот чат пришло сообщение ", test.payload.value.content.text))
+                const datews = new Date(data_ws_mess.created * 1000); 
+                const hoursws = datews.getHours();
+                const minutesws = datews.getMinutes();
+                const n_datews = `${hoursws}:${minutesws}`
+
+                const wsmess = {      
+                    id: data_ws_mess.id,
+                    put:  test.payload.direction,
+                    text:  data_ws_mess.content.text,
+                    check: false,
+                    time:  n_datews,
+                }
+                setListMessage([ wsmess, ...listMessage])
+                // setWsMessage([...wsMessages, wsmess])
             }
         }
     
@@ -133,13 +149,12 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
     }
 
     const handleKeyPress = (event) => {
-        const textareaHeight = event.target.scrollHeight;
-        console.log(textareaHeight)
         if (event.key === 'Enter' && !event.shiftKey) {
           event.preventDefault()
           sendMessage()
         } else if (event.key === 'Enter' && event.shiftKey) {
           setMessageText((prevMessage) => prevMessage + '\n')
+
         }
     }
 
@@ -187,7 +202,9 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
            <div className="Messages">
 
                     {
-                        listMessage.map(itemdata => (
+                        listMessage.map(itemdata => 
+                        (
+
                             <Message 
                                 key={itemdata.id}
                                 put={itemdata.put}
@@ -197,6 +214,11 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
                             />
                         ))
                     }
+
+                    
+
+             
+
            </div> 
 
            <div className="InputMessageBlock">

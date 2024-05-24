@@ -233,6 +233,7 @@ body {
   width: 43px;
   height: 43px;
   border-radius: 50%;
+  font-size: 14px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -243,6 +244,7 @@ body {
 .Account:first-child {
   margin-top: 20px;
 }
+
 
 ::-webkit-scrollbar {
   width: 5px;
@@ -407,9 +409,7 @@ body {
   /* margin-bottom: 5px */
   /* border-bottom: #e0e0e0 3px solid; */
 }
-.FolderChat {
-  /* border: 2px black solid; */
-}
+
 .__CircleChat {
   width: 54px;
   height: 54px;
@@ -418,6 +418,8 @@ body {
   margin-top: auto;
   margin-bottom: auto;
 }
+
+
 
 .ChatInfo {
   width: 50%;
@@ -608,6 +610,10 @@ body {
   word-wrap: break-word;
 }
 
+.__active {
+  width: 60px;
+  height: 60px;
+}
 
 .__my {
   margin-left: auto;
@@ -645,6 +651,7 @@ body {
   align-items: center;
   /* padding-left: 10px; */
 }
+
 
 
 .InputMessage {

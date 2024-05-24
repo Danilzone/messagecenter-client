@@ -37,30 +37,10 @@ export const Chats = () => {
     const [confirmColor, setConfirmColor] = useState(false)
     const [confirmDelete, setConfirmDelete] = useState(false)
 
-    const [chat, setChat] = useState([  
-    // {
-    //     id: "u23r2",
-    //     title:"Название товара",
-    //     last_message: "Ласт сообщение",
-    //     color: "green", 
-    //     message_author_id: "1124124",
-    //     date: 1717812214,
-    //     direction: "out",
-    //     isRead: false,
-    //     chat_name: "Игорь Григорьев Игоревич"
-    // },
-    // {
-    //     id: "u23r23",
-    //     title:"Иванов Иван Иванович",
-    //     last_message: "Ласт сообщение, ну как бы вот так. Многа текстаааа",
-    //     color: "green", 
-    //     message_author_id: "12313113",
-    //     date: 1717812214,
-    //     direction: "in",
-    //     isRead: false,
-    //     chat_name: "HER"
-    // },
- ])
+    const [chat, setChat] = useState([])
+
+    const [activeChat, setActiveCHat] = useState()
+    const [activeAcc, setActiveAcc] = useState()
 
     const [searchInput, setSearchInput] = useState('');
 
@@ -84,20 +64,23 @@ export const Chats = () => {
             console.log("Отправка на сервер", e);
         };
         socket.onmessage = function(event) {
-            // console.log(`Data:: `, event.data);
             if(event.data[0] == "{"){
+
                 const data_chats_ws = JSON.parse(event.data);
-                setWsTest(data_chats_ws)
+                console.log(data_chats_ws)
                 if(data_chats_ws && data_chats_ws.payload && data_chats_ws.payload.value) {
-                    const ws_chat_id = data_chats_ws.payload.value.chat_id;
-                    const ws_message = data_chats_ws.payload.value.content.text;
-        
-                    // console.log(ws_chat_id, ws_message);
+                    const ws_chat_id = data_chats_ws.payload.value.chat_id
+                    const ws_message = data_chats_ws.payload.value.content.text
+                    
+                    // if (openChat) {
+                    setWsTest(data_chats_ws)
+                    // }
                     setChat(prevChat => 
                         prevChat.map(chatItem =>
                             chatItem.id === ws_chat_id ? {...chatItem, last_message: ws_message} : chatItem
                         )
                     )
+
                     // console.log(data_chats_ws.payload)
                 }
             }
@@ -284,15 +267,22 @@ export const Chats = () => {
    
         } 
         else {
-            setLoading(true)
-            axios.post(`http://${url}/avito_chats/get_chat?chat_id=${id}&account_name=${acc_avito_name}`, {chat_id: id, account_name: acc_avito_name}, headers_auth)
-            .then(res => {                  
-                setOpenChat({ id: id, chatId: id, userName: userName , product: product, messages: res.data, acc_avito_name: acc_avito_name});
-            })
-            .catch(err => {
-                console.log("msgs: ", err)
-            })
-            .finally(() => {setLoading(false)})
+            // console.log("pred ", activeChat)
+            if(activeChat == id) {
+                console.log("Вы в этом чате и находитесь")
+            } else {
+                
+                setLoading(true)
+                axios.post(`http://${url}/avito_chats/get_chat?chat_id=${id}&account_name=${acc_avito_name}`, {chat_id: id, account_name: acc_avito_name}, headers_auth)
+                .then(res => {                 
+                    setOpenChat({ id: id, chatId: id, userName: userName , product: product, messages: res.data, acc_avito_name: acc_avito_name});
+                })
+                .catch(err => {
+                    console.log("msgs: ", err)
+                })
+                .finally(() => {setLoading(false)})
+            }
+        
         }
             
     }
@@ -316,6 +306,8 @@ export const Chats = () => {
        } else {
             console.log(chat)
             if(color == "default") {
+                // renderChat()
+                setActiveAcc()
                 setChat([]);
                 setChat(saveChat);
             } else {
@@ -330,10 +322,12 @@ export const Chats = () => {
 
     const filterChat = (id, name) => {        
         setLoading(true)
+        setActiveAcc(id)
         axios.post(`http://${url}/avito_chats/filters/accounts?account=${name}`, {accounts: name} ,headers_auth)
         .then(res => {
             // console.log(res.data)
             const all_chat = res.data
+            console.log(all_chat)
             for(const chat in all_chat) {
                 const acc_chats = all_chat[chat]
                 
@@ -382,7 +376,7 @@ export const Chats = () => {
                     
                 }
                 setChat(full_chat_list);
-                setSaveChat(full_chat_list)
+
             }
         })
         .catch(err => {
@@ -496,7 +490,7 @@ export const Chats = () => {
                                 {accElements.map(acc =>
 
                                 (
-                                    <div key={acc.acc_profile_id} className="Account" data-index={acc.acc_profile_id} onClick={() => filterChat(acc.acc_profile_id, acc.acc_name)}>
+                                    <div key={acc.acc_profile_id} className={`Account ${activeAcc == acc.acc_profile_id ? " __active" : ""}`} data-index={acc.acc_profile_id} onClick={() => filterChat(acc.acc_profile_id, acc.acc_name)}>
                                         {acc.acc_name.slice(0, 2)}
                                     </div>
                                 ))}
@@ -587,6 +581,8 @@ export const Chats = () => {
 
                             RenderFilteredChatList.map(item_chat => (
                                 <div  className="ChatBlock" onClick={() => {
+                                    setActiveCHat(item_chat.id)
+                                    // console.log("act", item_chat.id)
                                     openChatHandler(item_chat.id, item_chat.chat_name, item_chat.title, item_chat.acc_avito_name);
                                 }} >
                                     <Chat 
@@ -638,7 +634,6 @@ export const Chats = () => {
                         token={auth_token}
                         acc_avito_name={openChat.acc_avito_name}
                         test={wsTest}
-                        
                     />
                 )
             }
