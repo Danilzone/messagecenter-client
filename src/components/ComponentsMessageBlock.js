@@ -31,6 +31,7 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
                             time:  n_date
                         })
                         setListMessage(list_mess)
+                        setWsMessage([])
                     } 
                 }   
             }
@@ -45,68 +46,30 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
     }
 
 
-    useEffect(() => {   
-        renderMessage()
+
+    useEffect(() => {    
+        setListMessage([])       
         setWsMessage([])
-        // if(ws) {
-        //     console.log("Расторжение с", ws)
-        //     ws.close()
-        // }
-
-        // let socket = new WebSocket(`ws://${url}/avito_webhook/chats`)
-        // console.log("//")
-        // setWs(socket)
-        // socket.onopen = function(e) {
-        //     socket.send(chatId);
-        // };
-        // socket.onmessage = function(event) {
-        //     if(event.data[0] == "{"){
-        //         const data_chats_ws = JSON.parse(event.data);
-        //         console.log("/chats", data_chats_ws)
-        //         // if(data_chats_ws && data_chats_ws.payload && data_chats_ws.payload.value) {
-        //             // const ws_chat_id = data_chats_ws.payload.value.chat_id;
-        //             // const ws_message = data_chats_ws.payload.value.content.text
+        renderMessage() 
         
-        //             // console.log("/chats", ws_chat_id, ws_message)
+        if (test && test.payload.value.chat_id === chatId) {
+            const data_ws_mess = test.payload.value
+            const datews = new Date(data_ws_mess.created * 1000); 
+            const hoursws = datews.getHours();
+            const minutesws = datews.getMinutes();
+            const n_datews = `${hoursws}:${minutesws}`
 
-        //         // }
-        //     }
-        // }
-        // socket.onclose = function(event) {
-        //     if (event.wasClean) {
-        //         console.log(`[close] Connection closed cleanly, code=${event.code} reason=${event.reason}`);
-        //     } else {
-        //         console.log('[close] Connection died');
-        //     }
-        // };
-        // socket.onerror = function(error) {
-        //     console.log(`[error]`, error);
-        // };
-        if(!test) {
-            console.log("нету тест")
+            const wsmess = {      
+                id: data_ws_mess.id,
+                put:  test.payload.direction,
+                text:  data_ws_mess.content.text,
+                check: false,
+                time:  n_datews,
+            }   
+            setListMessage(list => [wsmess, ...list])
+            console.log("+++")
         }
-        if(test) {
-            if ( test.payload.value.chat_id == chatId) {
-                const data_ws_mess = test.payload.value
-                // console.log(test)
-                // console.log("В этот чат пришло сообщение ", test.payload.value.content.text))
-                const datews = new Date(data_ws_mess.created * 1000); 
-                const hoursws = datews.getHours();
-                const minutesws = datews.getMinutes();
-                const n_datews = `${hoursws}:${minutesws}`
 
-                const wsmess = {      
-                    id: data_ws_mess.id,
-                    put:  test.payload.direction,
-                    text:  data_ws_mess.content.text,
-                    check: false,
-                    time:  n_datews,
-                }
-                setListMessage([ wsmess, ...listMessage])
-                // setWsMessage([...wsMessages, wsmess])
-            }
-        }
-    
     }, [messages, test]);
 
     const [messageText, setMessageText] = useState('')
@@ -116,10 +79,6 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
     };
 
     const sendMessage = () => {
-        // console.log(chatName)
-        // console.log(
-        //     `http://${url}/avito_chats/send_message?chat_id=${id}&account_name=${acc_avito_name}&message=${messageText}`
-        // )
         axios.post(`http://${url}/avito_chats/send_message?chat_id=${id}&account_name=${acc_avito_name}&message=${messageText}`, {
             chat_id: id,
             account_name: acc_avito_name,
@@ -201,24 +160,18 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
 
            <div className="Messages">
 
-                    {
+                    {    
                         listMessage.map(itemdata => 
-                        (
-
-                            <Message 
-                                key={itemdata.id}
-                                put={itemdata.put}
-                                text={itemdata.text}
-                                check={itemdata.check}
-                                time={itemdata.time}
-                            />
-                        ))
+                            (    
+                                <Message 
+                                    key={itemdata.id}
+                                    put={itemdata.put}
+                                    text={itemdata.text}
+                                    check={itemdata.check}
+                                    time={itemdata.time}
+                                />
+                            ))
                     }
-
-                    
-
-             
-
            </div> 
 
            <div className="InputMessageBlock">
