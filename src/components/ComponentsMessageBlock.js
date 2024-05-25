@@ -47,7 +47,7 @@ export const MessageBlock = ({id, chatId, chatName, product, onClickColor, onCli
 
     useEffect(() => {   
         renderMessage()
-        // setWsMessage([])
+        setWsMessage([])
         // if(ws) {
         //     console.log("Расторжение с", ws)
         //     ws.close()
